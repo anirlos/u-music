@@ -1,26 +1,30 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import styled from 'styled-components';
+
+import ReplaySlider from './components/ReplaySlider';
+import SelectionSlider from './components/SelectionSlider';
+
+const AppContainer = styled.div`
+	display: flex;
+`;
+
+const MainContainer = styled.div`
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	background: #000;
+`;
+
+const App = () => {
+	return (
+		<AppContainer>
+			<MainContainer>
+				<ReplaySlider />
+				<SelectionSlider />
+			</MainContainer>
+		</AppContainer>
+	);
+};
 
 export default App;
