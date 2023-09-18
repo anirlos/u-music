@@ -1,10 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 // import axios from 'axios';
 import styled from 'styled-components';
-
-import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'; // react-icons에서 화살표 아이콘 import
-import { CgMoreVerticalAlt } from 'react-icons/cg';
+import Modal from './Modal';
+import { TfiArrowCircleLeft, TfiArrowCircleRight } from 'react-icons/tfi'; // react-icons에서 화살표 아이콘 import
+import { RiMore2Line } from 'react-icons/ri';
 function ReplaySlider() {
+	const [hover, setHover] = useState(false);
+	const [modalOpen, setModalOpen] = useState(false);
+
 	const replayList = [
 		{
 			id: 1,
@@ -56,13 +59,13 @@ function ReplaySlider() {
 
 	const scrollLeft = () => {
 		if (sliderRef.current) {
-			sliderRef.current.scrollLeft -= 1440;
+			sliderRef.current.scrollLeft -= 240;
 		}
 	};
 
 	const scrollRight = () => {
 		if (sliderRef.current) {
-			sliderRef.current.scrollLeft += 1440;
+			sliderRef.current.scrollLeft += 240;
 		}
 	};
 
@@ -79,10 +82,10 @@ function ReplaySlider() {
 					</Name>
 					<ArrowButton>
 						<ScrollButton onClick={scrollLeft}>
-							<FiChevronLeft />
+							<TfiArrowCircleLeft color="#fff" />
 						</ScrollButton>
 						<ScrollButton onClick={scrollRight}>
-							<FiChevronRight />
+							<TfiArrowCircleRight color="#fff" />
 						</ScrollButton>
 					</ArrowButton>
 				</TitleBottom>
@@ -91,11 +94,16 @@ function ReplaySlider() {
 			<SliderContainer ref={sliderRef}>
 				{replayList.map((item) => (
 					<ReplayCard key={item.id}>
-						<AlbumImg>
+						<AlbumImg
+							key={item.id}
+							onMouseOver={() => setHover(item.id)}
+							onMouseOut={() => setHover(null)}
+						>
 							<img src={process.env.PUBLIC_URL + '/image/' + item.thumbnail} />
-							<MoreIcon>
-								<CgMoreVerticalAlt color="#fff" />
+							<MoreIcon onClick={() => setModalOpen(!modalOpen)}>
+								{hover === item.id && <RiMore2Line color="#fff" />}
 							</MoreIcon>
+							{modalOpen && <Modal setModalOpen={setModalOpen} />}
 						</AlbumImg>
 						<p>{item.title}</p>
 						<p>{item.artist}</p>
@@ -133,11 +141,13 @@ const Img = styled.div`
 	height: 56px;
 	display: flex;
 	align-items: center;
+
 	img {
 		width: 100%;
 		height: 100%;
 		border-radius: 50%;
 		object-fit: cover;
+		margin-right: 24px;
 	}
 `;
 
@@ -162,6 +172,7 @@ const Name = styled.div`
 const SliderContainer = styled.div`
 	display: flex;
 	flex-direction: row;
+	width: 100%;
 	overflow-x: hidden;
 	margin: 16px 0 24px;
 	gap: 24px;
@@ -172,6 +183,11 @@ const ReplayCard = styled.div`
 		font-size: 14px;
 		color: #fff;
 		margin: 0;
+		&:nth-last-child(1) {
+			&:hover {
+				text-decoration: underline;
+			}
+		}
 	}
 `;
 
@@ -183,6 +199,7 @@ const AlbumImg = styled.div`
 		max-width: 100%;
 		height: auto;
 		margin-bottom: 5px;
+		border-radius: 2%;
 		transition: transform 0.3s, box-shadow 0.3s;
 	}
 
@@ -194,15 +211,10 @@ const AlbumImg = styled.div`
 
 const MoreIcon = styled.div`
 	position: absolute;
-	top: 15px;
-	right: 15px;
-
-	z-index: 1;
-
-	&:hover {
-		z-index: 2;
-		display: block;
-	}
+	top: 10%;
+	right: 5%;
+	transform: translate(-50%, -50%);
+	text-align: center;
 `;
 
 const ArrowButton = styled.div`
@@ -214,9 +226,12 @@ const ArrowButton = styled.div`
 const ScrollButton = styled.button`
 	background: none;
 	border: none;
-	cursor: pointer;
+	opacity: 0.5;
 	font-size: 24px;
 	color: #333;
+	&:hover {
+		opacity: 1;
+	}
 `;
 
 export default ReplaySlider;

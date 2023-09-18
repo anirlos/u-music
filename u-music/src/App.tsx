@@ -2,8 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import ReplaySlider from './components/ReplaySlider';
-import SelectionSlider from './components/SelectionSlider';
+import Home from './Home';
 
 const AppContainer = styled.div`
 	display: flex;
@@ -20,8 +19,7 @@ const App = () => {
 	return (
 		<AppContainer>
 			<MainContainer>
-				<ReplaySlider />
-				<SelectionSlider />
+				<Home />
 			</MainContainer>
 		</AppContainer>
 	);
