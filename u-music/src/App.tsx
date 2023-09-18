@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import NewplaylistModal from "./components/NewplaylistModal";
+import NewplaylistModal from "./components/NewplaylistModal"; // 대소문자 일치
 import Newplaylistbtn from "./components/Newplaylistbtn";
 
 function App() {
