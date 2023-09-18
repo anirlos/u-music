@@ -3,8 +3,8 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Nav from "components/Nav";
 import Category from "components/Category";
-import Library from "components/pages/Library";
 import Home from "components/pages/Home";
+import Library from "components/pages/Library";
 
 function App() {
   return (
