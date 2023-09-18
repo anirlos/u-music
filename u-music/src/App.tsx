@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
+import NewplaylistModal from "./components/NewplaylistModal";
 import Newplaylistbtn from "./components/Newplaylistbtn";
 
 function App() {
-  const handleClick = () => {
-    alert("Button clicked!");
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
   };
 
   return (
     <div>
-      <Newplaylistbtn label="+ 새 재생목록" onClick={handleClick} />
+      <Newplaylistbtn label="+ 새 재생목록" onClick={handleOpenModal} />
+      <NewplaylistModal isOpen={isModalOpen} onClose={handleCloseModal} />
     </div>
   );
 }
