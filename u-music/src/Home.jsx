@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import ReplaySlider from './components/ReplaySlider';
 import SelectionSlider from './components/SelectionSlider';
 import Modal from './components/Modal';
+import ReplaySliderTest from './components/ReplaySliderTest';
 
 function Home() {
 	return (
 		<div>
+			<ReplaySliderTest />
 			<ReplaySlider />
 			<SelectionSlider />
 			<ModalContainer>
