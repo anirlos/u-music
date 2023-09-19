@@ -9,8 +9,8 @@ function Modal({ isOpen, onClose }) {
 	// Add your modal content here
 
 	return (
-		<ModalContainer>
-			<CloseButton onClick={onClose}>x</CloseButton>
+		<ModalContainer onClick={onClose}>
+			<CloseButton>x</CloseButton>
 			<ModalContent>
 				{/* Add your modal content here */}
 				<ul>

@@ -1,12 +1,32 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 // import axios from 'axios';
 import styled from 'styled-components';
 import Modal from './Modal';
-import { TfiArrowCircleLeft, TfiArrowCircleRight } from 'react-icons/tfi'; // react-icons에서 화살표 아이콘 import
+import { TfiArrowCircleLeft, TfiArrowCircleRight } from 'react-icons/tfi'; //
 import { RiMore2Line } from 'react-icons/ri';
+
 function ReplaySlider() {
 	const [hover, setHover] = useState(false);
 	const [modalOpen, setModalOpen] = useState(false);
+	const modalBackground = useRef();
+	const mediaQuery = window.matchMedia(
+		'(max-width: 1440px),(max-width: 1024px),(max-width: 768px)'
+	);
+	const [isMobileView, setIsMobileView] = useState(mediaQuery.matches);
+
+	useEffect(() => {
+		const handleResize = () => {
+			setIsMobileView(mediaQuery.matches);
+		};
+
+		mediaQuery.addListener(handleResize);
+
+		return () => {
+			mediaQuery.removeListener(handleResize);
+		};
+	}, [mediaQuery]);
+
+	// 나머지 코드는 이전과 동일
 
 	const replayList = [
 		{
@@ -51,6 +71,30 @@ function ReplaySlider() {
 			artist: '아이유(IU)',
 			thumbnail: 'play02.jpg',
 		},
+		{
+			id: 8,
+			title: '운이 좋았지',
+			artist: '권진아',
+			thumbnail: 'play01.jpg',
+		},
+		{
+			id: 9,
+			title: '사랑이 잘',
+			artist: '아이유(IU) 및 Oh Hyuk',
+			thumbnail: 'play01.jpg',
+		},
+		{
+			id: 10,
+			title: '예뻤어(여름날 우리 X 김민석(멜로망스))',
+			artist: '김민석(멜로망스)',
+			thumbnail: 'play01.jpg',
+		},
+		{
+			id: 11,
+			title: '잘 가',
+			artist: '권진아',
+			thumbnail: 'play01.jpg',
+		},
 
 		// 추가 다시 듣기 목록 데이터
 	];
@@ -68,6 +112,9 @@ function ReplaySlider() {
 			sliderRef.current.scrollLeft += 240;
 		}
 	};
+	const closeModal = () => {
+		setModalOpen(false);
+	};
 
 	return (
 		<Container>
@@ -80,16 +127,16 @@ function ReplaySlider() {
 						<p>김아름</p>
 						<h1>다시듣기</h1>
 					</Name>
-					<ArrowButton>
-						<ScrollButton onClick={scrollLeft}>
-							<TfiArrowCircleLeft color="#fff" />
-						</ScrollButton>
-						<ScrollButton onClick={scrollRight}>
-							<TfiArrowCircleRight color="#fff" />
-						</ScrollButton>
-					</ArrowButton>
 				</TitleBottom>
 			</Title>
+			<ArrowButton mediaQuery={isMobileView}>
+				<ScrollButton onClick={scrollLeft}>
+					<TfiArrowCircleLeft color="#fff" />
+				</ScrollButton>
+				<ScrollButton onClick={scrollRight}>
+					<TfiArrowCircleRight color="#fff" />
+				</ScrollButton>
+			</ArrowButton>
 			{/* slide */}
 			<SliderContainer ref={sliderRef}>
 				{replayList.map((item) => (
@@ -107,12 +154,19 @@ function ReplaySlider() {
 						<p>{item.title}</p>
 						<p>{item.artist}</p>
 						{modalOpen === item.id && (
-							<ModalContainer onClick={() => setHover(item.id)}>
+							<ModalContainer
+								ref={modalBackground}
+								onClick={(e) => {
+									if (e.target === modalBackground.current) {
+										closeModal();
+									}
+								}}
+							>
 								<ModalWrap>
 									<Modal
 										key={item.id}
 										isOpen={modalOpen}
-										onClose={() => setModalOpen(false)}
+										onClose={closeModal}
 									/>
 								</ModalWrap>
 							</ModalContainer>
@@ -125,6 +179,7 @@ function ReplaySlider() {
 }
 
 const Container = styled.div`
+	position: relative;
 	width: 100%;
 	max-width: 1440px;
 	margin: 0 auto;
@@ -186,6 +241,18 @@ const SliderContainer = styled.div`
 	overflow-x: hidden;
 	margin: 16px 0 24px;
 	gap: 24px;
+	overflow-x: auto;
+	scrollbar-width: none;
+	&::-webkit-scrollbar {
+		width: 0;
+		background: transparent;
+	}
+	/* @media (max-width: 1440px) {
+		&::-webkit-scrollbar {
+			width: 0;
+			background: transparent;
+		}
+	} */
 `;
 
 const ReplayCard = styled.div`
@@ -218,6 +285,27 @@ const AlbumImg = styled.div`
 		opacity: 0.5;
 		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 	}
+	@media (max-width: 1440px) {
+		width: 180px;
+		img {
+			max-width: 100%;
+			height: auto;
+			margin-bottom: 5px;
+			border-radius: 2%;
+			transition: transform 0.3s, box-shadow 0.3s;
+		}
+
+		&:hover img {
+			opacity: 0.5;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+		}
+	}
+	@media (max-width: 1024px) {
+		width: 200px;
+	}
+	@media (max-width: 768px) {
+		width: 240px;
+	}
 `;
 
 const MoreIcon = styled.div`
@@ -242,9 +330,15 @@ const ModalWrap = styled.div`
 `;
 
 const ArrowButton = styled.div`
+	position: absolute;
+	z-index: 1;
+	top: 20%;
+	right: ${({ mediaQuery }) =>
+		mediaQuery ? '10%' : '0'}; /* 화면 크기에 따라 right 속성 조정 */
 	display: flex;
-	justify-content: flex-end;
-	align-items: end;
+	flex-direction: row;
+	align-items: center;
+	transition: right 0.3s; /* 이동 효과를 부드럽게 하기 위한 트랜지션 설정 */
 `;
 
 const ScrollButton = styled.button`

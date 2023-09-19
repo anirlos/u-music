@@ -6,7 +6,7 @@ import { HiPlay } from 'react-icons/hi2';
 import { BiLike, BiDislike } from 'react-icons/bi';
 import { CgMoreVerticalAlt } from 'react-icons/cg';
 
-function SelectionSlide() {
+function SlideTest() {
 	const playList = [
 		{
 			id: 1,
@@ -399,4 +399,4 @@ const LikeHover = styled.div`
 		opacity: 1;
 	}
 `;
-export default SelectionSlide;
+export default SlideTest;
