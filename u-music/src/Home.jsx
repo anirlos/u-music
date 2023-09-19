@@ -3,14 +3,10 @@ import styled from 'styled-components';
 import ReplaySlider from './components/ReplaySlider';
 import SelectionSlider from './components/SelectionSlider';
 import Modal from './components/Modal';
-import MusicChart from './components/MusicChart';
-import ReplaySliderTest from './components/ReplaySliderTest';
 
 function Home() {
 	return (
 		<div>
-			{/* <MusicChart /> */}
-			<ReplaySliderTest />
 			<ReplaySlider />
 			<SelectionSlider />
 			<ModalContainer>
@@ -25,7 +21,7 @@ const ModalContainer = styled.div`
 	position: fixed;
 	left: 524.656px;
 	top: 349.5px;
-	z-index: 105;
+	z-index: 103;
 `;
 
 export default Home;

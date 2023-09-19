@@ -5,46 +5,100 @@ import Modal from './Modal';
 import { TfiArrowCircleLeft, TfiArrowCircleRight } from 'react-icons/tfi'; //
 import { RiMore2Line } from 'react-icons/ri';
 
-import axios from 'axios';
-
 function ReplaySlider() {
 	const [hover, setHover] = useState(false);
 	const [modalOpen, setModalOpen] = useState(false);
-
 	const modalBackground = useRef();
+	const mediaQuery = window.matchMedia(
+		'(max-width: 1440px),(max-width: 1024px),(max-width: 768px)'
+	);
+	const [isMobileView, setIsMobileView] = useState(mediaQuery.matches);
+
+	useEffect(() => {
+		const handleResize = () => {
+			setIsMobileView(mediaQuery.matches);
+		};
+
+		mediaQuery.addListener(handleResize);
+
+		return () => {
+			mediaQuery.removeListener(handleResize);
+		};
+	}, [mediaQuery]);
 
 	// 나머지 코드는 이전과 동일
 
-	const [artistInfo, setArtistInfo] = useState({});
-	const [artistAlbums, setArtistAlbums] = useState([]);
-	const artistName = 'BTS'; // 원하는 가수 이름으로 변경하세요
+	const replayList = [
+		{
+			id: 1,
+			title: '진심이었던 사람만 바보가 돼',
+			artist: '권진아',
+			thumbnail: 'play01.jpg',
+		},
+		{
+			id: 2,
+			title: '와르르♥',
+			artist: '콜드',
+			thumbnail: 'play01.jpg',
+		},
+		{
+			id: 3,
+			title: '운이 좋았지',
+			artist: '권진아',
+			thumbnail: 'play01.jpg',
+		},
+		{
+			id: 4,
+			title: '사랑이 잘',
+			artist: '아이유(IU) 및 Oh Hyuk',
+			thumbnail: 'play01.jpg',
+		},
+		{
+			id: 5,
+			title: '예뻤어(여름날 우리 X 김민석(멜로망스))',
+			artist: '김민석(멜로망스)',
+			thumbnail: 'play01.jpg',
+		},
+		{
+			id: 6,
+			title: '잘 가',
+			artist: '권진아',
+			thumbnail: 'play01.jpg',
+		},
+		{
+			id: 7,
+			title: '이름에게',
+			artist: '아이유(IU)',
+			thumbnail: 'play02.jpg',
+		},
+		{
+			id: 8,
+			title: '운이 좋았지',
+			artist: '권진아',
+			thumbnail: 'play01.jpg',
+		},
+		{
+			id: 9,
+			title: '사랑이 잘',
+			artist: '아이유(IU) 및 Oh Hyuk',
+			thumbnail: 'play01.jpg',
+		},
+		{
+			id: 10,
+			title: '예뻤어(여름날 우리 X 김민석(멜로망스))',
+			artist: '김민석(멜로망스)',
+			thumbnail: 'play01.jpg',
+		},
+		{
+			id: 11,
+			title: '잘 가',
+			artist: '권진아',
+			thumbnail: 'play01.jpg',
+		},
 
-	useEffect(() => {
-		// 가수 정보 가져오기
-		axios
-			.get(
-				`https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artistName}&api_key=c240344b78f86d48dbb7a77a1f52511e&format=json`
-			)
-			.then((response) => {
-				setArtistInfo(response.data.artist);
-			})
-			.catch((error) => {
-				console.error('Error fetching artist info:', error);
-			});
-
-		// 가수 앨범 가져오기
-		axios
-			.get(
-				`https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${artistName}&api_key=c240344b78f86d48dbb7a77a1f52511e&format=json`
-			)
-			.then((response) => {
-				setArtistAlbums(response.data.topalbums.album);
-			})
-			.catch((error) => {
-				console.error('Error fetching artist albums:', error);
-			});
-	}, []);
-
+		// 추가 다시 듣기 목록 데이터
+	];
+	// const [replayList, setReplayList] = useState([]);
 	const sliderRef = useRef(null);
 
 	const scrollLeft = () => {
@@ -75,7 +129,7 @@ function ReplaySlider() {
 					</Name>
 				</TitleBottom>
 			</Title>
-			<ArrowButton>
+			<ArrowButton mediaQuery={isMobileView}>
 				<ScrollButton onClick={scrollLeft}>
 					<TfiArrowCircleLeft color="#fff" />
 				</ScrollButton>
@@ -85,24 +139,21 @@ function ReplaySlider() {
 			</ArrowButton>
 			{/* slide */}
 			<SliderContainer ref={sliderRef}>
-				{artistAlbums.map((album, index) => (
-					<ReplayCard key={index.id}>
+				{replayList.map((item) => (
+					<ReplayCard key={item.id}>
 						<AlbumImg
-							key={index.id}
-							onMouseOver={() => setHover(index.id)}
+							key={item.id}
+							onMouseOver={() => setHover(item.id)}
 							onMouseOut={() => setHover(null)}
 						>
-							<img
-								src={album.image[2]['#text']}
-								alt={`${album.name} 앨범 이미지`}
-							/>
-							<MoreIcon onClick={() => setModalOpen(index.id)}>
-								{hover === index.id && <RiMore2Line color="#fff" />}
+							<img src={process.env.PUBLIC_URL + '/image/' + item.thumbnail} />
+							<MoreIcon onClick={() => setModalOpen(item.id)}>
+								{hover === item.id && <RiMore2Line color="#fff" />}
 							</MoreIcon>
 						</AlbumImg>
-						<p>{album.name}</p>
-						<p>{artistName}</p>
-						{modalOpen === index.id && (
+						<p>{item.title}</p>
+						<p>{item.artist}</p>
+						{modalOpen === item.id && (
 							<ModalContainer
 								ref={modalBackground}
 								onClick={(e) => {
@@ -113,7 +164,7 @@ function ReplaySlider() {
 							>
 								<ModalWrap>
 									<Modal
-										key={index.id}
+										key={item.id}
 										isOpen={modalOpen}
 										onClose={closeModal}
 									/>
@@ -260,13 +311,14 @@ const AlbumImg = styled.div`
 const MoreIcon = styled.div`
 	position: absolute;
 	top: 10%;
-	right: 10%;
+	right: 5%;
 	transform: translate(-50%, -50%);
 	text-align: center;
 `;
 
 const ModalContainer = styled.div`
 	position: absolute;
+
 	top: 10%;
 	left: 20%;
 	z-index: 100;
