@@ -100,13 +100,23 @@ function ReplaySlider() {
 							onMouseOut={() => setHover(null)}
 						>
 							<img src={process.env.PUBLIC_URL + '/image/' + item.thumbnail} />
-							<MoreIcon onClick={() => setModalOpen(!modalOpen)}>
+							<MoreIcon onClick={() => setModalOpen(item.id)}>
 								{hover === item.id && <RiMore2Line color="#fff" />}
 							</MoreIcon>
-							{modalOpen && <Modal setModalOpen={setModalOpen} />}
 						</AlbumImg>
 						<p>{item.title}</p>
 						<p>{item.artist}</p>
+						{modalOpen === item.id && (
+							<ModalContainer onClick={() => setHover(item.id)}>
+								<ModalWrap>
+									<Modal
+										key={item.id}
+										isOpen={modalOpen}
+										onClose={() => setModalOpen(false)}
+									/>
+								</ModalWrap>
+							</ModalContainer>
+						)}
 					</ReplayCard>
 				))}
 			</SliderContainer>
@@ -179,6 +189,7 @@ const SliderContainer = styled.div`
 `;
 
 const ReplayCard = styled.div`
+	position: relative;
 	p {
 		font-size: 14px;
 		color: #fff;
@@ -215,6 +226,19 @@ const MoreIcon = styled.div`
 	right: 5%;
 	transform: translate(-50%, -50%);
 	text-align: center;
+`;
+
+const ModalContainer = styled.div`
+	position: absolute;
+
+	top: 10%;
+	left: 20%;
+	z-index: 100;
+`;
+
+const ModalWrap = styled.div`
+	position: fixed;
+	z-index: 103;
 `;
 
 const ArrowButton = styled.div`
