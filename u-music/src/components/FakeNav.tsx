@@ -8,6 +8,7 @@ const Nav = () => {
       <button className="hamburger-btn">
         <FaBars />
       </button>
+      검색창 로그인
     </Container>
   );
 };

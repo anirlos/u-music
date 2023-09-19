@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useCallback } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { useTime } from "hooks/useTime";
@@ -15,9 +15,12 @@ const LibraryItem: FC<LibraryItemProps> = ({ song }) => {
 
   const { msToTime } = useTime();
 
-  const handleRemoveFromLibrary = (id: number) => {
-    dispatch(removeFromLibrary(id));
-  };
+  const handleRemoveFromLibrary = useCallback(
+    (id: number) => {
+      dispatch(removeFromLibrary(id));
+    },
+    [dispatch]
+  );
 
   return (
     <Item>
@@ -164,4 +167,4 @@ const ItemRight = styled.div`
   }
 `;
 
-export default LibraryItem;
+export default React.memo(LibraryItem);

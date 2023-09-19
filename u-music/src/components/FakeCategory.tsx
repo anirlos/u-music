@@ -17,7 +17,6 @@ const Category: FC = () => {
 
 const Container = styled.div`
   width: 240px;
-  max-width: 240px;
   background-color: blue;
 `;
 

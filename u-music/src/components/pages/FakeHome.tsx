@@ -1,19 +1,22 @@
-import React, { FC } from "react";
+import React, { FC, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import dummydata from "assets/dummydatas/dummydata";
 import { SongData } from "types";
 import { addToLibrary } from "redux/library-slice";
+import styled from "styled-components";
 
 const Home: FC = () => {
   const dispatch = useDispatch();
 
-  const handleAddToLibrary = (item: SongData) => {
-    dispatch(addToLibrary(item));
-    console.log(item);
-  };
+  const handleAddToLibrary = useCallback(
+    (item: SongData) => {
+      dispatch(addToLibrary(item));
+    },
+    [dispatch]
+  );
 
   return (
-    <div>
+    <Container>
       <div className="songs-container">
         <h2>노래</h2>
         {dummydata.map((item: SongData) => (
@@ -34,8 +37,12 @@ const Home: FC = () => {
           </div>
         ))}
       </div>
-    </div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  width: calc(100vw - 240px);
+`;
 
 export default Home;

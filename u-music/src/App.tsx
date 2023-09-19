@@ -27,7 +27,7 @@ function App() {
           </Routes>
         </MainContainer>
 
-        <Player />
+        {/* <Player /> */}
       </Router>
     </AppContainer>
   );
@@ -36,15 +36,13 @@ function App() {
 const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
+  width: calc(100vw - (100vw - 100%));
+  /* width: calc(100vw - (100vw - 100%)); */
 `;
 
 const MainContainer = styled.div`
   display: flex;
   background: #000;
-  height: calc(100vw - 65px);
-  FakeCategory {
-    flex-shrink: 0;
-  }
 `;
 
 export default App;

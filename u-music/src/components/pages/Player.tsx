@@ -1,6 +1,7 @@
 import React from "react";
 import { FC } from "react";
-import { styled } from "styled-components";
+import styled from "styled-components";
+
 import {
   TbPlayerSkipBackFilled,
   TbPlayerSkipForwardFilled,
@@ -27,7 +28,7 @@ const Player: FC = () => {
 
 const Container = styled.div`
   position: fixed;
-  z-index: 100;
+  z-index: 4;
   bottom: 0;
   width: 100vw;
   height: 72px;

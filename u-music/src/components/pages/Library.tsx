@@ -13,11 +13,7 @@ const Library: FC = () => {
     <Container>
       <ContentContainer>
         {/* contents - 보관함에 담긴 data들 list로 */}
-        {/* contetns */}
         <div className="items">
-          {/* {savedSongs.map((item) => (
-            <LibraryItem key={item.id} song={item} />
-          ))} */}
           {savedSongs.length > 0 ? (
             savedSongs.map((item) => <LibraryItem key={item.id} song={item} />)
           ) : (
@@ -31,6 +27,7 @@ const Library: FC = () => {
 
 const Container = styled.div`
   width: calc(100vw - 240px);
+  height: calc(100vh - 65px);
 `;
 
 const ContentContainer = styled.div`
