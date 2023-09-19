@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 interface ModalProps {
   isOpen: boolean;
@@ -68,9 +69,13 @@ const NewPlaylistModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
           </InputText>
         </ContentContainer>
         <ModalButton>
-          <button className="create-button" onClick={handleCreatePlaylist}>
+          <Link
+            to="/New-playlist"
+            className="create-button"
+            onClick={handleCreatePlaylist}
+          >
             만들기
-          </button>
+          </Link>
           <button className="close-button" onClick={onClose}>
             취소
           </button>
@@ -123,7 +128,7 @@ const InputText = styled.div`
 
   input {
     background-color: #212121;
-    width: 38vw;
+    width: 100%;
     padding: 0.5rem;
     padding-right: 2rem;
     margin-top: 1.5rem;
@@ -154,6 +159,7 @@ const ModalButton = styled.div`
   display: flex;
   flex-direction: row-reverse;
   padding: 1rem;
+  textdecoration: none;
 
   .create-button {
     background-color: #fff;
@@ -163,6 +169,7 @@ const ModalButton = styled.div`
     border: none;
     border-radius: 1.5rem;
     cursor: pointer;
+    textdecoration: none;
 
     &:hover {
       background-color: #d9d9d9;
