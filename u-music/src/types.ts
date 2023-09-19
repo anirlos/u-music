@@ -8,3 +8,7 @@ export interface SongData {
   releaseYear: number;
   duration_ms: number;
 }
+
+export interface TimeMs {
+  msToTime: (duration: number) => string;
+}

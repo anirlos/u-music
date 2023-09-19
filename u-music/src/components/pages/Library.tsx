@@ -1,18 +1,57 @@
 import React, { FC } from "react";
+import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { RootState } from "redux/store";
+import LibraryItem from "components/LibraryItem";
 
 const Library: FC = () => {
+  const savedSongs = useSelector(
+    (state: RootState) => state.library.savedSongs
+  );
+
   return (
-    <div className="container">
-      <div className="content-wrapper">
+    <Container>
+      <ContentContainer>
         {/* contents - 보관함에 담긴 data들 list로 */}
-        <div className="contents">
-          보관함 화면
-          <div className="items"></div>
+        {/* contetns */}
+        <div className="items">
+          {/* {savedSongs.map((item) => (
+            <LibraryItem key={item.id} song={item} />
+          ))} */}
+          {savedSongs.length > 0 ? (
+            savedSongs.map((item) => <LibraryItem key={item.id} song={item} />)
+          ) : (
+            <NoSongMessage>저장된 노래가 없습니다.</NoSongMessage>
+          )}
         </div>
-      </div>
-      <div className="player"></div>
-    </div>
+      </ContentContainer>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  width: calc(100vw - 240px);
+`;
+
+const ContentContainer = styled.div`
+  padding-top: 48px;
+
+  .items {
+    > :last-child {
+      border-bottom: none;
+    }
+  }
+`;
+
+const NoSongMessage = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: #fff;
+  padding: 20px 0;
+`;
 
 export default Library;
