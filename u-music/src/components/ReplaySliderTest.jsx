@@ -1,50 +1,134 @@
 import React, { useRef, useState, useEffect } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import styled from 'styled-components';
 import Modal from './Modal';
 import { TfiArrowCircleLeft, TfiArrowCircleRight } from 'react-icons/tfi'; //
 import { RiMore2Line } from 'react-icons/ri';
 
-import axios from 'axios';
-
-function ReplaySlider() {
+function ReplaySliderTest() {
 	const [hover, setHover] = useState(false);
 	const [modalOpen, setModalOpen] = useState(false);
-
 	const modalBackground = useRef();
-
-	// 나머지 코드는 이전과 동일
-
-	const [artistInfo, setArtistInfo] = useState({});
-	const [artistAlbums, setArtistAlbums] = useState([]);
-	const artistName = 'BTS'; // 원하는 가수 이름으로 변경하세요
+	const mediaQuery = window.matchMedia(
+		'(max-width: 1440px),(max-width: 1024px),(max-width: 768px)'
+	);
+	const [isMobileView, setIsMobileView] = useState(mediaQuery.matches);
 
 	useEffect(() => {
-		// 가수 정보 가져오기
-		axios
-			.get(
-				`https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artistName}&api_key=c240344b78f86d48dbb7a77a1f52511e&format=json`
-			)
-			.then((response) => {
-				setArtistInfo(response.data.artist);
-			})
-			.catch((error) => {
-				console.error('Error fetching artist info:', error);
-			});
+		const handleResize = () => {
+			setIsMobileView(mediaQuery.matches);
+		};
 
-		// 가수 앨범 가져오기
+		mediaQuery.addListener(handleResize);
+
+		return () => {
+			mediaQuery.removeListener(handleResize);
+		};
+	}, [mediaQuery]);
+
+	const [chartData, setChartData] = useState([]);
+
+	useEffect(() => {
+		// Spotify API에서 최신 음악 차트 데이터 가져오기
+		const spotifyClientId = '78cf2caf0c014010ba9267597eaac6a3'; // Spotify 클라이언트 ID
+		const spotifyApiUrl = 'https://api.spotify.com/v1/browse/new-releases';
+
 		axios
-			.get(
-				`https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${artistName}&api_key=c240344b78f86d48dbb7a77a1f52511e&format=json`
-			)
+			.get(spotifyApiUrl, {
+				headers: {
+					Authorization: `Bearer BQAWKlAJ8Sc7co6GkipMs27gDgVtN5HbijQVMFxbPGOShhALZyu_e-xGgXlZ_hv5aOAk7TN7dytiO--e9efsCsXj6f2qHj_Ps_BPoVzTklISyf7vBn5QhKgMn_DWJU7jyqg1djZKnS1iTZi2XMxZKcj62q0ktzQH0_F62nhIpbu81zJyS7NBKkk8bmHVhONt7Rds6ZE6MkXFn-9SvXTwxFwM3pCbIJV3HhoEzKkrJvyp0NJYhmK9YSCK3ZCuce_qkV62PE64zWAkqvLl`, // Spotify 액세스 토큰
+				},
+			})
 			.then((response) => {
-				setArtistAlbums(response.data.topalbums.album);
+				const tracks = response.data.albums.items.map((album) => {
+					return {
+						title: album.name,
+						artist: album.artists.map((artist) => artist.name).join(', '),
+						image: album.images[0].url,
+						releaseDate: album.release_date,
+					};
+				});
+
+				setChartData(tracks);
 			})
 			.catch((error) => {
-				console.error('Error fetching artist albums:', error);
+				console.error('Error fetching music chart data:', error);
 			});
 	}, []);
 
+	// 나머지 코드는 이전과 동일
+
+	// const replayList = [
+	// 	{
+	// 		id: 1,
+	// 		title: '진심이었던 사람만 바보가 돼',
+	// 		artist: '권진아',
+	// 		thumbnail: 'play01.jpg',
+	// 	},
+	// 	{
+	// 		id: 2,
+	// 		title: '와르르♥',
+	// 		artist: '콜드',
+	// 		thumbnail: 'play01.jpg',
+	// 	},
+	// 	{
+	// 		id: 3,
+	// 		title: '운이 좋았지',
+	// 		artist: '권진아',
+	// 		thumbnail: 'play01.jpg',
+	// 	},
+	// 	{
+	// 		id: 4,
+	// 		title: '사랑이 잘',
+	// 		artist: '아이유(IU) 및 Oh Hyuk',
+	// 		thumbnail: 'play01.jpg',
+	// 	},
+	// 	{
+	// 		id: 5,
+	// 		title: '예뻤어(여름날 우리 X 김민석(멜로망스))',
+	// 		artist: '김민석(멜로망스)',
+	// 		thumbnail: 'play01.jpg',
+	// 	},
+	// 	{
+	// 		id: 6,
+	// 		title: '잘 가',
+	// 		artist: '권진아',
+	// 		thumbnail: 'play01.jpg',
+	// 	},
+	// 	{
+	// 		id: 7,
+	// 		title: '이름에게',
+	// 		artist: '아이유(IU)',
+	// 		thumbnail: 'play02.jpg',
+	// 	},
+	// 	{
+	// 		id: 8,
+	// 		title: '운이 좋았지',
+	// 		artist: '권진아',
+	// 		thumbnail: 'play01.jpg',
+	// 	},
+	// 	{
+	// 		id: 9,
+	// 		title: '사랑이 잘',
+	// 		artist: '아이유(IU) 및 Oh Hyuk',
+	// 		thumbnail: 'play01.jpg',
+	// 	},
+	// 	{
+	// 		id: 10,
+	// 		title: '예뻤어(여름날 우리 X 김민석(멜로망스))',
+	// 		artist: '김민석(멜로망스)',
+	// 		thumbnail: 'play01.jpg',
+	// 	},
+	// 	{
+	// 		id: 11,
+	// 		title: '잘 가',
+	// 		artist: '권진아',
+	// 		thumbnail: 'play01.jpg',
+	// 	},
+
+	// 	// 추가 다시 듣기 목록 데이터
+	// ];
+	// const [replayList, setReplayList] = useState([]);
 	const sliderRef = useRef(null);
 
 	const scrollLeft = () => {
@@ -75,7 +159,7 @@ function ReplaySlider() {
 					</Name>
 				</TitleBottom>
 			</Title>
-			<ArrowButton>
+			<ArrowButton mediaQuery={isMobileView}>
 				<ScrollButton onClick={scrollLeft}>
 					<TfiArrowCircleLeft color="#fff" />
 				</ScrollButton>
@@ -85,23 +169,20 @@ function ReplaySlider() {
 			</ArrowButton>
 			{/* slide */}
 			<SliderContainer ref={sliderRef}>
-				{artistAlbums.map((album, index) => (
+				{chartData.map((track, index) => (
 					<ReplayCard key={index.id}>
 						<AlbumImg
 							key={index.id}
 							onMouseOver={() => setHover(index.id)}
 							onMouseOut={() => setHover(null)}
 						>
-							<img
-								src={album.image[2]['#text']}
-								alt={`${album.name} 앨범 이미지`}
-							/>
+							<img src={track.image} alt={`${track.title} 앨범 이미지`} />
 							<MoreIcon onClick={() => setModalOpen(index.id)}>
 								{hover === index.id && <RiMore2Line color="#fff" />}
 							</MoreIcon>
 						</AlbumImg>
-						<p>{album.name}</p>
-						<p>{artistName}</p>
+						<p>{track.title}</p>
+						<p>{track.artist}</p>
 						{modalOpen === index.id && (
 							<ModalContainer
 								ref={modalBackground}
@@ -260,13 +341,14 @@ const AlbumImg = styled.div`
 const MoreIcon = styled.div`
 	position: absolute;
 	top: 10%;
-	right: 10%;
+	right: 0%;
 	transform: translate(-50%, -50%);
 	text-align: center;
 `;
 
 const ModalContainer = styled.div`
 	position: absolute;
+
 	top: 10%;
 	left: 20%;
 	z-index: 100;
@@ -300,4 +382,4 @@ const ScrollButton = styled.button`
 	}
 `;
 
-export default ReplaySlider;
+export default ReplaySliderTest;
