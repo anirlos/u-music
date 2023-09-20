@@ -9,7 +9,7 @@ const dummyData: SongData[] = [
     artist: "Artist 1",
     albumTitle: "Album 1",
     releaseYear: 2020,
-    duration_ms: 208000,
+    duration_ms: 208000, // 재생 시간을 밀리초 단위로 설정
   },
   {
     id: 2,

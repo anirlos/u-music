@@ -6,7 +6,6 @@ import FakeNav from "components/FakeNav";
 import FakeCategory from "components/FakeCategory";
 import FakeHome from "components/pages/FakeHome";
 import Library from "components/pages/Library";
-import Player from "components/pages/Player";
 
 function App() {
   return (
@@ -26,8 +25,6 @@ function App() {
             <Route path="/library" element={<Library />}></Route>
           </Routes>
         </MainContainer>
-
-        {/* <Player /> */}
       </Router>
     </AppContainer>
   );

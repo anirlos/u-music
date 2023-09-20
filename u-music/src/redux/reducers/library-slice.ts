@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { SongData } from "types";
 
 interface LibraryState {
@@ -13,7 +13,7 @@ const librarySlice = createSlice({
   name: "library",
   initialState,
   reducers: {
-    addToLibrary: (state, action) => {
+    addToLibrary: (state, action: PayloadAction<SongData>) => {
       state.savedSongs.push(action.payload);
       localStorage.setItem("savedSongs", JSON.stringify(state.savedSongs));
     },

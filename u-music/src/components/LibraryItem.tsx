@@ -8,7 +8,6 @@ import { FaPlay, FaTrashCan } from "react-icons/fa6";
 
 interface LibraryItemProps {
   song: SongData;
-  onClick: () => void;
 }
 
 const LibraryItem: FC<LibraryItemProps> = ({ song }) => {
