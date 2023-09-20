@@ -48,7 +48,7 @@ function SelectionSlide() {
 		axios
 			.get(spotifyApiUrl, {
 				headers: {
-					Authorization: `Bearer BQDH2PLcYRpjz8XK1WddEPBQxa02dZZV7QFanuzE8D1skaTGZ6apnreKuvxISC0Qe_d-jFcRpc_xo3HD4V7LM_HNFXaeGBG9Is6SmiACO9AUsKFBp1jfBoJo-Mp-pA-oBhfSmwoRKf53epCI9XZJICwE6V3G43CkKSr_poOFzbczxSZAlilEohgqPXgHOSWOdUdwYjrvCuFqiDw7vgsInlzAZixWkUgHxCJUBkidFf-TP0KQjgR-tFnlY9TBRQTOm6lr-tAXRU0RBvY4`, // Spotify 액세스 토큰
+					Authorization: `Bearer BQB0LWYdPBrygVcAzR4ccnPYsuG1fJLcBAntpc_ZIxVZWzZvviIN4I6fepAY4l8y2kPDY5Q1A9nxa1CwBdwVJPphVbkOxKX1ZwfD8HbGBId65JFnyU12sFse_TTU2uvX-NxljplZSGP3BSlLNjdtUqwc8pPFya-mr6NA-30SB9UpxkBbmMDuXbNubNIORs-SvGDJxYfGNpc-ckMzAlm7W4V1lygn3E9hB84xkO8tZRnXuDhMO_yF_6mk3CSvOj5wqfhk4HPZUJy4PUry`, // Spotify 액세스 토큰
 				},
 			})
 			.then((response) => {

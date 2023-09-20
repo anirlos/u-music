@@ -1,104 +1,58 @@
 import React, { useRef, useState, useEffect } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import styled from 'styled-components';
 import Modal from './Modal';
 import { TfiArrowCircleLeft, TfiArrowCircleRight } from 'react-icons/tfi'; //
 import { RiMore2Line } from 'react-icons/ri';
+import user from '../img/user.jpg';
 
-function ReplaySlider() {
+function ReplaySliderTest() {
 	const [hover, setHover] = useState(false);
 	const [modalOpen, setModalOpen] = useState(false);
 	const modalBackground = useRef();
-	const mediaQuery = window.matchMedia(
-		'(max-width: 1440px),(max-width: 1024px),(max-width: 768px)'
-	);
-	const [isMobileView, setIsMobileView] = useState(mediaQuery.matches);
+
+	const [chartData, setChartData] = useState([]);
+
+	const openModal = (index) => {
+		// 모달 열 때 body의 스크롤 비활성화
+		document.body.style.overflow = 'hidden';
+		setModalOpen(index);
+	};
+
+	const closeModal = () => {
+		// 모달 닫을 때 body의 스크롤 다시 활성화
+		document.body.style.overflow = 'auto';
+		setModalOpen(false);
+	};
 
 	useEffect(() => {
-		const handleResize = () => {
-			setIsMobileView(mediaQuery.matches);
-		};
+		// Spotify API에서 최신 음악 차트 데이터 가져오기
+		const spotifyClientId = '78cf2caf0c014010ba9267597eaac6a3'; // Spotify 클라이언트 ID
+		const spotifyApiUrl = 'https://api.spotify.com/v1/browse/new-releases';
 
-		mediaQuery.addListener(handleResize);
+		axios
+			.get(spotifyApiUrl, {
+				headers: {
+					Authorization: `Bearer BQB0LWYdPBrygVcAzR4ccnPYsuG1fJLcBAntpc_ZIxVZWzZvviIN4I6fepAY4l8y2kPDY5Q1A9nxa1CwBdwVJPphVbkOxKX1ZwfD8HbGBId65JFnyU12sFse_TTU2uvX-NxljplZSGP3BSlLNjdtUqwc8pPFya-mr6NA-30SB9UpxkBbmMDuXbNubNIORs-SvGDJxYfGNpc-ckMzAlm7W4V1lygn3E9hB84xkO8tZRnXuDhMO_yF_6mk3CSvOj5wqfhk4HPZUJy4PUry`, // Spotify 액세스 토큰
+				},
+			})
+			.then((response) => {
+				const tracks = response.data.albums.items.map((album) => {
+					return {
+						title: album.name,
+						artist: album.artists.map((artist) => artist.name).join(', '),
+						image: album.images[0].url,
+						releaseDate: album.release_date,
+					};
+				});
 
-		return () => {
-			mediaQuery.removeListener(handleResize);
-		};
-	}, [mediaQuery]);
+				setChartData(tracks);
+			})
+			.catch((error) => {
+				console.error('Error fetching music chart data:', error);
+			});
+	}, []);
 
-	// 나머지 코드는 이전과 동일
-
-	const replayList = [
-		{
-			id: 1,
-			title: '진심이었던 사람만 바보가 돼',
-			artist: '권진아',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 2,
-			title: '와르르♥',
-			artist: '콜드',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 3,
-			title: '운이 좋았지',
-			artist: '권진아',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 4,
-			title: '사랑이 잘',
-			artist: '아이유(IU) 및 Oh Hyuk',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 5,
-			title: '예뻤어(여름날 우리 X 김민석(멜로망스))',
-			artist: '김민석(멜로망스)',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 6,
-			title: '잘 가',
-			artist: '권진아',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 7,
-			title: '이름에게',
-			artist: '아이유(IU)',
-			thumbnail: 'play02.jpg',
-		},
-		{
-			id: 8,
-			title: '운이 좋았지',
-			artist: '권진아',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 9,
-			title: '사랑이 잘',
-			artist: '아이유(IU) 및 Oh Hyuk',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 10,
-			title: '예뻤어(여름날 우리 X 김민석(멜로망스))',
-			artist: '김민석(멜로망스)',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 11,
-			title: '잘 가',
-			artist: '권진아',
-			thumbnail: 'play01.jpg',
-		},
-
-		// 추가 다시 듣기 목록 데이터
-	];
-	// const [replayList, setReplayList] = useState([]);
 	const sliderRef = useRef(null);
 
 	const scrollLeft = () => {
@@ -112,15 +66,12 @@ function ReplaySlider() {
 			sliderRef.current.scrollLeft += 240;
 		}
 	};
-	const closeModal = () => {
-		setModalOpen(false);
-	};
 
 	return (
 		<Container>
 			<Title>
 				<Img>
-					<img src="image/user.jpg" />
+					<img src={user} />
 				</Img>
 				<TitleBottom>
 					<Name>
@@ -129,7 +80,7 @@ function ReplaySlider() {
 					</Name>
 				</TitleBottom>
 			</Title>
-			<ArrowButton mediaQuery={isMobileView}>
+			<ArrowButton>
 				<ScrollButton onClick={scrollLeft}>
 					<TfiArrowCircleLeft color="#fff" />
 				</ScrollButton>
@@ -139,21 +90,21 @@ function ReplaySlider() {
 			</ArrowButton>
 			{/* slide */}
 			<SliderContainer ref={sliderRef}>
-				{replayList.map((item) => (
-					<ReplayCard key={item.id}>
+				{chartData.map((track, index) => (
+					<ReplayCard key={index.id}>
 						<AlbumImg
-							key={item.id}
-							onMouseOver={() => setHover(item.id)}
+							key={index.id}
+							onMouseOver={() => setHover(index)}
 							onMouseOut={() => setHover(null)}
 						>
-							<img src={process.env.PUBLIC_URL + '/image/' + item.thumbnail} />
-							<MoreIcon onClick={() => setModalOpen(item.id)}>
-								{hover === item.id && <RiMore2Line color="#fff" />}
+							<img src={track.image} alt={`${track.title} 앨범 이미지`} />
+							<MoreIcon onClick={() => openModal(index)}>
+								{hover === index && <RiMore2Line color="#fff" />}
 							</MoreIcon>
 						</AlbumImg>
-						<p>{item.title}</p>
-						<p>{item.artist}</p>
-						{modalOpen === item.id && (
+						<p>{track.title}</p>
+						<p>{track.artist}</p>
+						{modalOpen === index && (
 							<ModalContainer
 								ref={modalBackground}
 								onClick={(e) => {
@@ -163,11 +114,7 @@ function ReplaySlider() {
 								}}
 							>
 								<ModalWrap>
-									<Modal
-										key={item.id}
-										isOpen={modalOpen}
-										onClose={closeModal}
-									/>
+									<Modal isOpen={modalOpen === index} onClose={closeModal} />
 								</ModalWrap>
 							</ModalContainer>
 						)}
@@ -237,7 +184,6 @@ const Name = styled.div`
 const SliderContainer = styled.div`
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
 	width: 100%;
 	overflow-x: hidden;
 	margin: 16px 0 24px;
@@ -312,7 +258,7 @@ const AlbumImg = styled.div`
 const MoreIcon = styled.div`
 	position: absolute;
 	top: 10%;
-	right: 5%;
+	right: 0%;
 	transform: translate(-50%, -50%);
 	text-align: center;
 `;
@@ -327,6 +273,7 @@ const ModalContainer = styled.div`
 
 const ModalWrap = styled.div`
 	position: fixed;
+	overflow: auto;
 	z-index: 103;
 `;
 
@@ -334,11 +281,12 @@ const ArrowButton = styled.div`
 	position: absolute;
 	z-index: 1;
 	top: 20%;
-	right: 10%
+	right: ${({ mediaQuery }) =>
+		mediaQuery ? '10%' : '0'}; /* 화면 크기에 따라 right 속성 조정 */
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	transition: right 0.3s;
+	transition: right 0.3s; /* 이동 효과를 부드럽게 하기 위한 트랜지션 설정 */
 `;
 
 const ScrollButton = styled.button`
@@ -352,4 +300,4 @@ const ScrollButton = styled.button`
 	}
 `;
 
-export default ReplaySlider;
+export default ReplaySliderTest;
