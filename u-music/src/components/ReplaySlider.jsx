@@ -237,6 +237,7 @@ const Name = styled.div`
 const SliderContainer = styled.div`
 	display: flex;
 	flex-direction: row;
+	justify-content: space-between;
 	width: 100%;
 	overflow-x: hidden;
 	margin: 16px 0 24px;
@@ -333,12 +334,11 @@ const ArrowButton = styled.div`
 	position: absolute;
 	z-index: 1;
 	top: 20%;
-	right: ${({ mediaQuery }) =>
-		mediaQuery ? '10%' : '0'}; /* 화면 크기에 따라 right 속성 조정 */
+	right: 10%
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	transition: right 0.3s; /* 이동 효과를 부드럽게 하기 위한 트랜지션 설정 */
+	transition: right 0.3s;
 `;
 
 const ScrollButton = styled.button`

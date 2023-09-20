@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { TfiArrowCircleLeft, TfiArrowCircleRight } from 'react-icons/tfi';
@@ -7,161 +8,15 @@ import { BiLike, BiDislike } from 'react-icons/bi';
 import { CgMoreVerticalAlt } from 'react-icons/cg';
 
 function SelectionSlide() {
-	const playList = [
-		{
-			id: 1,
-			title: '진심이었던 사람만 바보가 돼',
-			artist: '권진아',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 2,
-			title: '와르르♥',
-			artist: '콜드',
-			thumbnail: 'play02.jpg',
-		},
-		{
-			id: 3,
-			title: '운이 좋았지',
-			artist: '권진아',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 4,
-			title: '사랑이 잘',
-			artist: '아이유(IU) 및 Oh Hyuk',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 5,
-			title: '예뻤어(여름날 우리)',
-			artist: '김민석(멜로망스)',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 6,
-			title: '잘 가',
-			artist: '권진아',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 7,
-			title: '이름에게',
-			artist: '아이유(IU)',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 8,
-			title: '진심이었던 사람만 바보가 돼',
-			artist: '권진아',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 9,
-			title: '와르르♥',
-			artist: '콜드',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 10,
-			title: '운이 좋았지',
-			artist: '권진아',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 11,
-			title: '사랑이 잘',
-			artist: '아이유(IU) 및 Oh Hyuk',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 12,
-			title: '예뻤어(여름날 우리)',
-			artist: '김민석(멜로망스)',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 13,
-			title: '진심이었던 사람만 바보가 돼',
-			artist: '권진아',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 14,
-			title: '와르르♥',
-			artist: '콜드',
-			thumbnail: 'play02.jpg',
-		},
-		{
-			id: 15,
-			title: '운이 좋았지',
-			artist: '권진아',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 16,
-			title: '사랑이 잘',
-			artist: '아이유(IU) 및 Oh Hyuk',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 17,
-			title: '예뻤어(여름날 우리)',
-			artist: '김민석(멜로망스)',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 18,
-			title: '잘 가',
-			artist: '권진아',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 19,
-			title: '이름에게',
-			artist: '아이유(IU)',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 20,
-			title: '진심이었던 사람만 바보가 돼',
-			artist: '권진아',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 21,
-			title: '와르르♥',
-			artist: '콜드',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 22,
-			title: '운이 좋았지',
-			artist: '권진아',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 23,
-			title: '사랑이 잘',
-			artist: '아이유(IU) 및 Oh Hyuk',
-			thumbnail: 'play01.jpg',
-		},
-		{
-			id: 24,
-			title: '예뻤어(여름날 우리)',
-			artist: '김민석(멜로망스)',
-			thumbnail: 'play01.jpg',
-		},
-	];
 	const [currentSlide, setCurrentSlide] = useState(0);
 	const [hover, setHover] = useState(null);
 	const slideRef = useRef(null);
 	const ROWS = 4; // 변경: 행 수
 	const COLUMNS = 3; // 변경: 열 수
-	const TOTAL_SLIDES = Math.ceil(playList.length / (ROWS * COLUMNS)) - 1;
+	const [chartData, setChartData] = useState([]);
 
 	const scrollRight = () => {
-		if (currentSlide >= TOTAL_SLIDES) {
+		if (currentSlide >= getTotalSlides()) {
 			setCurrentSlide(0);
 		} else {
 			setCurrentSlide(currentSlide + 1);
@@ -170,16 +25,48 @@ function SelectionSlide() {
 
 	const scrollLeft = () => {
 		if (currentSlide === 0) {
-			setCurrentSlide(TOTAL_SLIDES);
+			setCurrentSlide(getTotalSlides());
 		} else {
 			setCurrentSlide(currentSlide - 1);
 		}
+	};
+
+	const getTotalSlides = () => {
+		return Math.ceil(chartData.length / (ROWS * COLUMNS)) - 1;
 	};
 
 	useEffect(() => {
 		slideRef.current.style.transition = 'all 0.5s ease-in-out';
 		slideRef.current.style.transform = `translateX(-${currentSlide * 32}%)`;
 	}, [currentSlide]);
+
+	useEffect(() => {
+		// Spotify API에서 최신 음악 차트 데이터 가져오기
+		const spotifyClientId = '78cf2caf0c014010ba9267597eaac6a3'; // Spotify 클라이언트 ID
+		const spotifyApiUrl = 'https://api.spotify.com/v1/browse/new-releases';
+
+		axios
+			.get(spotifyApiUrl, {
+				headers: {
+					Authorization: `Bearer BQDH2PLcYRpjz8XK1WddEPBQxa02dZZV7QFanuzE8D1skaTGZ6apnreKuvxISC0Qe_d-jFcRpc_xo3HD4V7LM_HNFXaeGBG9Is6SmiACO9AUsKFBp1jfBoJo-Mp-pA-oBhfSmwoRKf53epCI9XZJICwE6V3G43CkKSr_poOFzbczxSZAlilEohgqPXgHOSWOdUdwYjrvCuFqiDw7vgsInlzAZixWkUgHxCJUBkidFf-TP0KQjgR-tFnlY9TBRQTOm6lr-tAXRU0RBvY4`, // Spotify 액세스 토큰
+				},
+			})
+			.then((response) => {
+				const tracks = response.data.albums.items.map((album) => {
+					return {
+						title: album.name,
+						artist: album.artists.map((artist) => artist.name).join(', '),
+						image: album.images[0].url,
+						releaseDate: album.release_date,
+					};
+				});
+
+				setChartData(tracks);
+			})
+			.catch((error) => {
+				console.error('Error fetching music chart data:', error);
+			});
+	}, []);
 
 	return (
 		<Container>
@@ -201,43 +88,35 @@ function SelectionSlide() {
 				</ArrowButton>
 			</Button>
 			<SliderContainer ref={slideRef}>
-				{playList
-					.slice(
-						currentSlide * (ROWS * COLUMNS),
-						(currentSlide + 1) * (ROWS * COLUMNS)
-					)
-					.map((item) => (
-						<SongList key={item.id}>
-							<ListContents
-								key={item.id}
-								onMouseOver={() => setHover(item.id)}
-								onMouseOut={() => setHover(null)}
-							>
-								{hover === item.id && (
-									<ContentsHover>
-										<HiPlay />
-									</ContentsHover>
-								)}
-								{hover === item.id && (
-									<LikeHover>
-										<BiLike />
-										<BiDislike />
-										<CgMoreVerticalAlt />
-									</LikeHover>
-								)}
-								<ArtWork>
-									<img
-										src={process.env.PUBLIC_URL + '/image/' + item.thumbnail}
-										alt={item.title}
-									/>
-								</ArtWork>
-								<SongTitle>
-									<p>{item.title}</p>
-									<p>{item.artist}</p>
-								</SongTitle>
-							</ListContents>
-						</SongList>
-					))}
+				{chartData.map((track, index) => (
+					<SongList key={index.id}>
+						<ListContents
+							key={index.id}
+							onMouseOver={() => setHover(index)}
+							onMouseOut={() => setHover(null)}
+						>
+							{hover === index && (
+								<ContentsHover>
+									<HiPlay />
+								</ContentsHover>
+							)}
+							{hover === index && (
+								<LikeHover>
+									<BiLike />
+									<BiDislike />
+									<CgMoreVerticalAlt />
+								</LikeHover>
+							)}
+							<ArtWork>
+								<img src={track.image} alt={`${track.title} 앨범 이미지`} />
+							</ArtWork>
+							<SongTitle>
+								<p>{track.title}</p>
+								<p>{track.artist}</p>
+							</SongTitle>
+						</ListContents>
+					</SongList>
+				))}
 			</SliderContainer>
 		</Container>
 	);
@@ -250,22 +129,22 @@ const Container = styled.div`
 
 	/* background-color: gray; */
 `;
-// const Title = styled.div`
-// 	display: flex;
-// 	flex-direction: row;
-// 	justify-content: flex-start;
-// 	align-items: center;
-// 	max-width: 1440px;
-// 	margin: 0 auto;
-// 	padding: 32px 0 24px 0;
-// 	gap: 24px;
-// 	padding-bottom: 0;
-// `;
-// const TitleBottom = styled.div`
-// 	width: 100%;
-// 	display: flex;
-// 	justify-content: space-between;
-// `;
+const Title = styled.div`
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	max-width: 1440px;
+	margin: 0 auto;
+	padding: 32px 0 24px 0;
+	gap: 24px;
+	padding-bottom: 0;
+`;
+const TitleBottom = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+`;
 
 const Name = styled.div`
 	padding: 0;

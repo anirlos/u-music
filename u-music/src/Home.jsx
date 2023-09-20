@@ -4,12 +4,14 @@ import ReplaySlider from './components/ReplaySlider';
 import SelectionSlider from './components/SelectionSlider';
 import Modal from './components/Modal';
 import ReplaySliderTest from './components/ReplaySliderTest';
+import MusicList from './components/MusicList';
 
 function Home() {
 	return (
 		<div>
 			<ReplaySliderTest />
-			<ReplaySlider />
+			{/* <MusicList /> */}
+			{/* <ReplaySlider /> */}
 			<SelectionSlider />
 			<ModalContainer>
 				<Modal />

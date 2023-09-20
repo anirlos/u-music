@@ -9,22 +9,6 @@ function ReplaySliderTest() {
 	const [hover, setHover] = useState(false);
 	const [modalOpen, setModalOpen] = useState(false);
 	const modalBackground = useRef();
-	const mediaQuery = window.matchMedia(
-		'(max-width: 1440px),(max-width: 1024px),(max-width: 768px)'
-	);
-	const [isMobileView, setIsMobileView] = useState(mediaQuery.matches);
-
-	useEffect(() => {
-		const handleResize = () => {
-			setIsMobileView(mediaQuery.matches);
-		};
-
-		mediaQuery.addListener(handleResize);
-
-		return () => {
-			mediaQuery.removeListener(handleResize);
-		};
-	}, [mediaQuery]);
 
 	const [chartData, setChartData] = useState([]);
 
@@ -36,7 +20,7 @@ function ReplaySliderTest() {
 		axios
 			.get(spotifyApiUrl, {
 				headers: {
-					Authorization: `Bearer BQAWKlAJ8Sc7co6GkipMs27gDgVtN5HbijQVMFxbPGOShhALZyu_e-xGgXlZ_hv5aOAk7TN7dytiO--e9efsCsXj6f2qHj_Ps_BPoVzTklISyf7vBn5QhKgMn_DWJU7jyqg1djZKnS1iTZi2XMxZKcj62q0ktzQH0_F62nhIpbu81zJyS7NBKkk8bmHVhONt7Rds6ZE6MkXFn-9SvXTwxFwM3pCbIJV3HhoEzKkrJvyp0NJYhmK9YSCK3ZCuce_qkV62PE64zWAkqvLl`, // Spotify 액세스 토큰
+					Authorization: `Bearer BQDH2PLcYRpjz8XK1WddEPBQxa02dZZV7QFanuzE8D1skaTGZ6apnreKuvxISC0Qe_d-jFcRpc_xo3HD4V7LM_HNFXaeGBG9Is6SmiACO9AUsKFBp1jfBoJo-Mp-pA-oBhfSmwoRKf53epCI9XZJICwE6V3G43CkKSr_poOFzbczxSZAlilEohgqPXgHOSWOdUdwYjrvCuFqiDw7vgsInlzAZixWkUgHxCJUBkidFf-TP0KQjgR-tFnlY9TBRQTOm6lr-tAXRU0RBvY4`, // Spotify 액세스 토큰
 				},
 			})
 			.then((response) => {
@@ -56,79 +40,6 @@ function ReplaySliderTest() {
 			});
 	}, []);
 
-	// 나머지 코드는 이전과 동일
-
-	// const replayList = [
-	// 	{
-	// 		id: 1,
-	// 		title: '진심이었던 사람만 바보가 돼',
-	// 		artist: '권진아',
-	// 		thumbnail: 'play01.jpg',
-	// 	},
-	// 	{
-	// 		id: 2,
-	// 		title: '와르르♥',
-	// 		artist: '콜드',
-	// 		thumbnail: 'play01.jpg',
-	// 	},
-	// 	{
-	// 		id: 3,
-	// 		title: '운이 좋았지',
-	// 		artist: '권진아',
-	// 		thumbnail: 'play01.jpg',
-	// 	},
-	// 	{
-	// 		id: 4,
-	// 		title: '사랑이 잘',
-	// 		artist: '아이유(IU) 및 Oh Hyuk',
-	// 		thumbnail: 'play01.jpg',
-	// 	},
-	// 	{
-	// 		id: 5,
-	// 		title: '예뻤어(여름날 우리 X 김민석(멜로망스))',
-	// 		artist: '김민석(멜로망스)',
-	// 		thumbnail: 'play01.jpg',
-	// 	},
-	// 	{
-	// 		id: 6,
-	// 		title: '잘 가',
-	// 		artist: '권진아',
-	// 		thumbnail: 'play01.jpg',
-	// 	},
-	// 	{
-	// 		id: 7,
-	// 		title: '이름에게',
-	// 		artist: '아이유(IU)',
-	// 		thumbnail: 'play02.jpg',
-	// 	},
-	// 	{
-	// 		id: 8,
-	// 		title: '운이 좋았지',
-	// 		artist: '권진아',
-	// 		thumbnail: 'play01.jpg',
-	// 	},
-	// 	{
-	// 		id: 9,
-	// 		title: '사랑이 잘',
-	// 		artist: '아이유(IU) 및 Oh Hyuk',
-	// 		thumbnail: 'play01.jpg',
-	// 	},
-	// 	{
-	// 		id: 10,
-	// 		title: '예뻤어(여름날 우리 X 김민석(멜로망스))',
-	// 		artist: '김민석(멜로망스)',
-	// 		thumbnail: 'play01.jpg',
-	// 	},
-	// 	{
-	// 		id: 11,
-	// 		title: '잘 가',
-	// 		artist: '권진아',
-	// 		thumbnail: 'play01.jpg',
-	// 	},
-
-	// 	// 추가 다시 듣기 목록 데이터
-	// ];
-	// const [replayList, setReplayList] = useState([]);
 	const sliderRef = useRef(null);
 
 	const scrollLeft = () => {
@@ -159,7 +70,7 @@ function ReplaySliderTest() {
 					</Name>
 				</TitleBottom>
 			</Title>
-			<ArrowButton mediaQuery={isMobileView}>
+			<ArrowButton>
 				<ScrollButton onClick={scrollLeft}>
 					<TfiArrowCircleLeft color="#fff" />
 				</ScrollButton>
@@ -173,12 +84,12 @@ function ReplaySliderTest() {
 					<ReplayCard key={index.id}>
 						<AlbumImg
 							key={index.id}
-							onMouseOver={() => setHover(index.id)}
+							onMouseOver={() => setHover(index)}
 							onMouseOut={() => setHover(null)}
 						>
 							<img src={track.image} alt={`${track.title} 앨범 이미지`} />
-							<MoreIcon onClick={() => setModalOpen(index.id)}>
-								{hover === index.id && <RiMore2Line color="#fff" />}
+							<MoreIcon onClick={() => setModalOpen(index)}>
+								{hover === index && <RiMore2Line color="#fff" />}
 							</MoreIcon>
 						</AlbumImg>
 						<p>{track.title}</p>
