@@ -2,7 +2,7 @@ import React, { FC, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import dummydata from "assets/dummydatas/dummydata";
 import { SongData } from "types";
-import { addToLibrary } from "redux/library-slice";
+import { addToLibrary } from "redux/reducers/library-slice";
 import styled from "styled-components";
 
 const Home: FC = () => {

@@ -2,12 +2,13 @@ import React, { FC, useCallback } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { useTime } from "hooks/useTime";
-import { removeFromLibrary } from "redux/library-slice";
+import { removeFromLibrary } from "redux/reducers/library-slice";
 import { SongData } from "types";
 import { FaPlay, FaTrashCan } from "react-icons/fa6";
 
 interface LibraryItemProps {
   song: SongData;
+  onClick: () => void;
 }
 
 const LibraryItem: FC<LibraryItemProps> = ({ song }) => {
@@ -92,15 +93,21 @@ const ItemHover = styled.div`
 const Item = styled.div`
   /* category 240px이라 가정한 경우(고정) */
   width: min(calc(100vw - 452px), 1478px);
-  max-width: 1440px;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  height: 48px;
+  height: 49px;
   padding: 0 8px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   &:hover ${ItemHover} {
     opacity: 1;
+  }
+
+  @media (max-width: 1150px) {
+    width: min(calc(100vw - 364px), 1478px);
+  }
+  @media (max-width: 935px) {
+    height: 56px;
   }
 `;
 
@@ -124,7 +131,7 @@ const ItemMiddle = styled.div`
   display: flex;
   flex: 1;
   flex-grow: 4 6;
-  font-size: 0.875rem;
+  font-size: 1rem;
   align-items: center;
   p {
     white-space: nowrap;
@@ -154,6 +161,37 @@ const ItemMiddle = styled.div`
       flex: 3;
     }
   }
+
+  @media (max-width: 935px) {
+    flex-direction: column;
+
+    div.item-info-title,
+    div.item-info-flex {
+      width: 100%;
+    }
+
+    div.item-info-flex {
+      display: flex;
+      justify-content: flex-start;
+      flex-direction: row;
+      p.item-artist {
+        flex: none;
+        position: relative;
+        padding-right: 15px;
+        &::after {
+          content: "•";
+          position: absolute;
+          right: 4px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: rgba(255, 255, 255, 0.7);
+        }
+        p.item-albumTitle {
+          flex: none;
+        }
+      }
+    }
+  }
 `;
 
 const ItemRight = styled.div`
@@ -161,7 +199,7 @@ const ItemRight = styled.div`
   align-items: center;
   margin-left: 16px;
   p {
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: rgba(255, 255, 255, 0.7);
     margin-left: 16px;
   }

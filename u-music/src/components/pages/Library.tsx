@@ -1,13 +1,22 @@
 import React, { FC } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { RootState } from "redux/store";
+import { LibraryRootState } from "redux/store/LibraryStore";
 import LibraryItem from "components/LibraryItem";
+import { SongData } from "types";
+import { setCurrentSong, playSong } from "redux/reducers/player-slice";
 
 const Library: FC = () => {
+  const dispatch = useDispatch();
   const savedSongs = useSelector(
-    (state: RootState) => state.library.savedSongs
+    (state: LibraryRootState) => state.library.savedSongs
   );
+
+  const handlePlaySong = (song: SongData, index: number) => {
+    dispatch(setCurrentSong({ song, index }));
+    dispatch(playSong());
+  };
 
   return (
     <Container>
@@ -15,7 +24,13 @@ const Library: FC = () => {
         {/* contents - 보관함에 담긴 data들 list로 */}
         <div className="items">
           {savedSongs.length > 0 ? (
-            savedSongs.map((item) => <LibraryItem key={item.id} song={item} />)
+            savedSongs.map((item, index) => (
+              <LibraryItem
+                key={item.id}
+                song={item}
+                onClick={() => handlePlaySong(item, index)}
+              />
+            ))
           ) : (
             <NoSongMessage>저장된 노래가 없습니다.</NoSongMessage>
           )}

@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import libraryReducer from "./library-slice";
+import libraryReducer from "../reducers/library-slice";
 
-export type RootState = ReturnType<typeof store.getState>;
+export type LibraryRootState = ReturnType<typeof store.getState>;
 
 const preloadedState = {
   library: {
