@@ -23,7 +23,6 @@ const Modal: React.FC<ModalProps> = ({ children, onClose }) => {
     <ModalOverlay onClick={onClose}>
       <ModalComponents onClick={(e) => e.stopPropagation()}>
         {children}
-        <CloseButton onClick={onClose}>X</CloseButton>
       </ModalComponents>
     </ModalOverlay>,
     el
@@ -44,18 +43,6 @@ const ModalOverlay = styled.div`
 
 const ModalComponents = styled.div`
   position: relative;
-`;
-
-const CloseButton = styled.button`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 20px;
-  line-height: 1;
-  color: rgba(255, 255, 255, 0.8);
 `;
 
 export default Modal;

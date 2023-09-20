@@ -13,7 +13,7 @@ const Home: FC = () => {
     (state: LibraryRootState) => state.library.savedSongs
   );
 
-  const [showModal, setShowModal] = useState(false);
+  const [showLibraryErrorModal, setShowLibraryErrorModal] = useState(false);
 
   const handleAddToLibrary = useCallback(
     (item: SongData) => {
@@ -25,7 +25,7 @@ const Home: FC = () => {
       if (isSongSaved) {
         // Modal 또는 알림을 통해 사용자에게 메시지 전달
         // alert("이미 존재하는 노래입니다.");
-        setShowModal(true);
+        setShowLibraryErrorModal(true);
       } else {
         // 노래를 보관함에 추가
         dispatch(addToLibrary(item));
@@ -56,11 +56,14 @@ const Home: FC = () => {
           </div>
         ))}
       </div>
-      {showModal && (
-        <Modal onClose={() => setShowModal(false)}>
+      {showLibraryErrorModal && (
+        <Modal onClose={() => setShowLibraryErrorModal(false)}>
           <LibraryErrorMessage>
             이미 보관함에 저장한 노래입니다.
           </LibraryErrorMessage>
+          <CloseButton onClick={() => setShowLibraryErrorModal(false)}>
+            X
+          </CloseButton>
         </Modal>
       )}
     </Container>
@@ -77,6 +80,18 @@ const LibraryErrorMessage = styled.div`
   font-size: 1.25rem;
   font-weight: bold;
   background: #212121;
+  color: rgba(255, 255, 255, 0.8);
+`;
+
+const CloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1;
   color: rgba(255, 255, 255, 0.8);
 `;
 
