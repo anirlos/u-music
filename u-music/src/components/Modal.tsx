@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRef } from 'react';
 
 interface ModalProps {
 	isOpen: boolean;
@@ -7,20 +8,28 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+	const modalBackground = useRef<HTMLDivElement>(null);
+
+	const closeModal = () => {
+		// 모달 닫을 때 body의 스크롤 다시 활성화
+		document.body.style.overflow = 'auto';
+		onClose();
+	};
+
 	if (!isOpen) {
 		return null;
 	}
 
-	const handleModalClick = (e: React.MouseEvent) => {
-		// 모달 바깥 영역 클릭 시 모달을 닫음
-		if (e.target === e.currentTarget) {
-			onClose();
-		}
-	};
-
 	return (
-		<ModalContainer onClick={handleModalClick}>
-			<CloseButton onClick={onClose}>x</CloseButton>
+		<ModalContainer
+			ref={modalBackground}
+			onClick={(e) => {
+				if (e.target === modalBackground.current) {
+					closeModal();
+				}
+			}}
+		>
+			<CloseButton onClick={closeModal}>x</CloseButton>
 			<ModalContent>
 				<ul>
 					<li>
@@ -74,7 +83,7 @@ const ModalContainer = styled.div`
 	background-color: #212121;
 	border-radius: 2%;
 	/* box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2); */
-
+	width: 100%;
 	max-width: 80%;
 
 	overflow: none;

@@ -41,7 +41,7 @@ function ReplaySliderTest() {
 		axios
 			.get(spotifyApiUrl, {
 				headers: {
-					Authorization: `Bearer BQBgCkTKLzAN_uhaSZ3oIfLIwbQKFi023VK8GbuKz17MhRwEPhvaVkoGkxuxLuFZ1YH8XunIXqTZL_9AZped833bOvSNWA5JdnJ4zvpx-yHkUN8haUxI6YyIviT1sNKRLKfizKSm3j0Ij06hBe0_X7sIRVo2mePOEHGfGNie_UjjuokN2GorHiXLmWeJLzzYntu1N48f9KJKSXy-rPQ-0optYAkRL0CAO33wdHSN4dY97oOep8iTWttVkCDH3--WloSY1xCLXhTMz1Xw`, // Spotify 액세스 토큰
+					Authorization: `Bearer BQBgpsrs_X3jI7jXJyL6ufHweiYwQeUZwv5aZ-BD2_trhSZq53bdy_vTIt6WeXREfBtU6QkXRRasdblpSP_TR8qUEt2yn0GBSPCucc_wQfhI49apI8eplWRAgxVjvINSFC_6rk8dj8PvGjY53nayBZNNnTasNhT42E819u1VzS3NdSi35pXNPntLt1f_t1nYUyc5Dsa8ytfdbR0ho4OS0VtW2vfbN9rf5mz4r1funnj0HSp9l3PzdyNbDifRcJigDYCcdcRKD6wvI7-1`,
 				},
 			})
 			.then((response) => {
@@ -295,7 +295,7 @@ const ArrowButton = styled.div`
 	position: absolute;
 	z-index: 1;
 	top: 20%;
-	right: 10%;
+	right: 0;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
