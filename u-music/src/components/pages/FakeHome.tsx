@@ -5,7 +5,7 @@ import { SongData } from "../../types";
 import { addToLibrary } from "../../redux/reducers/library-slice";
 import { LibraryRootState } from "../../redux/store/LibraryStore";
 import styled from "styled-components";
-import Modal from "../modals/Modal";
+import Modal from "../modals/ModalBox";
 
 const Home: FC = () => {
   const dispatch = useDispatch();
