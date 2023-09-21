@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto Mono";
+  background-color: #030303;
+}
+.navigation {
+  background-color: #030303;
+  color: #fff;
+  padding: 20px 30px 0px 15px;
+  position: fixed;
+  top: 86px;
+  width: 200px;
+  margin-right: 0;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navigation ul {
+  list-style: none;
+  padding: 0;
+  border-bottom: 1px solid #717171;
+}
+
+.navigation li {
+  margin-bottom: 40px;
+  display: flex; /* 부모 요소인 li를 flex로 설정 */
+  align-items: center; /* 세로 중앙 정렬 */
+}
+
+.navigation img {
+  width: 30px;
+  margin-right: 10px;
+}
+.navigation a {
+  padding: 0 0 0 10px;
+  text-decoration: none;
+  color: #fff;
+  font-size: 18px;
+}
+
+.navigation::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 14rem;
+  width: 1px; /* 세로 줄의 두께 조절 */
+  height: 100%; /* .navigation의 높이만큼 세로 줄을 늘립니다. */
+  background-color: #717171; /* 세로 줄의 색상 설정 */
+  /* 다른 스타일을 추가로 설정할 수 있습니다. */
+}
+
+.navigation button {
+  margin-top: auto; /* 버튼을 아래로 밀어서 아래 정렬을 막고 중앙 정렬 */
+  background-color: #1d1d1d; /* 버튼 배경색 */
+  color: #fff;
+  border: none;
+  padding: 10px 40px;
+  border-radius: 20px; /* 버튼에 border-radius 적용 */
+
+  cursor: pointer;
+  font-size: 15px;
+  display: flex;
+}
+
+@media screen and (min-width: 500px) {
+  .navigation {
+    padding-bottom: 1000px; /* 원하는 높이로 조절하세요 */
+  }
+}

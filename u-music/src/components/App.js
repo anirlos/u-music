@@ -1,0 +1,31 @@
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Header from "./components/Header";
+import Navigation from "./components/Navigation";
+import Home from "./components/Home";
+import Explore from "./components/Explore";
+import Dashboard from "./components/Dashboard";
+import SearchScreen from "./components/SearchScreen";
+
+function App() {
+  return (
+    <Router>
+      <div className="app">
+        <Header />
+        <div className="content">
+          <Navigation />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/explore" element={<Explore />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/search" element={<SearchScreen />} />
+            {/* 홈 페이지 */}
+            <Route path="/home" element={<Home />} />
+          </Routes>
+        </div>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
