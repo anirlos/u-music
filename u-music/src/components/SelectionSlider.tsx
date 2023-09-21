@@ -7,66 +7,87 @@ import { HiPlay } from 'react-icons/hi2';
 import { BiLike, BiDislike } from 'react-icons/bi';
 import { CgMoreVerticalAlt } from 'react-icons/cg';
 
+interface Track {
+	id: string;
+	title: string;
+	artist: string;
+	image: string;
+	releaseDate: string;
+}
+
 function SelectionSlide() {
-	const [currentSlide, setCurrentSlide] = useState(0);
-	const [hover, setHover] = useState(null);
-	const slideRef = useRef(null);
-	const ROWS = 4; // 변경: 행 수
-	const COLUMNS = 3; // 변경: 열 수
-	const [chartData, setChartData] = useState([]);
+	const [currentSlide, setCurrentSlide] = useState<number>(0);
+	const [hover, setHover] = useState<number | null>(null);
+	const slideRef = useRef<HTMLDivElement>(null);
 
+	const ROWS = 4;
+	const COLUMNS = 3;
+
+	const [chartData, setChartData] = useState<Track[]>([]);
+
+	// 오른쪽으로 슬라이드 이동
 	const scrollRight = () => {
-		if (currentSlide >= getTotalSlides()) {
-			setCurrentSlide(0);
-		} else {
-			setCurrentSlide(currentSlide + 1);
-		}
+		setCurrentSlide((prevSlide) => {
+			if (prevSlide === getTotalSlides()) {
+				return 0;
+			} else {
+				return prevSlide + 1;
+			}
+		});
 	};
 
+	// 왼쪽으로 슬라이드 이동
 	const scrollLeft = () => {
-		if (currentSlide === 0) {
-			setCurrentSlide(getTotalSlides());
-		} else {
-			setCurrentSlide(currentSlide - 1);
-		}
+		setCurrentSlide((prevSlide) => {
+			if (prevSlide === 0) {
+				return getTotalSlides();
+			} else {
+				return prevSlide - 1;
+			}
+		});
 	};
 
+	// 전체 슬라이드 수 계산
 	const getTotalSlides = () => {
 		return Math.ceil(chartData.length / (ROWS * COLUMNS)) - 1;
 	};
 
 	useEffect(() => {
-		slideRef.current.style.transition = 'all 0.5s ease-in-out';
-		slideRef.current.style.transform = `translateX(-${currentSlide * 32}%)`;
+		// 슬라이드 이동 애니메이션 적용
+		if (slideRef.current) {
+			slideRef.current.style.transition = 'all 0.5s ease-in-out';
+			slideRef.current.style.transform = `translateX(-${currentSlide * 32}%)`;
+		}
 	}, [currentSlide]);
 
 	useEffect(() => {
-		// Spotify API에서 최신 음악 차트 데이터 가져오기
-		const spotifyClientId = '78cf2caf0c014010ba9267597eaac6a3'; // Spotify 클라이언트 ID
-		const spotifyApiUrl = 'https://api.spotify.com/v1/browse/new-releases';
-
-		axios
-			.get(spotifyApiUrl, {
-				headers: {
-					Authorization: `Bearer BQCB8xp0RkkKWT0eD21Df3rTqiISlpjiO3wxo38dLuWtfdacLjHLQR5z4BiJAoUAQoGTOblqVhsCS2NyOe1r1pDHn6rpg3KKLbx2ZEFAcilYYZ6iXCgSPnUvIiRSWYhRqgapdvb8LjabVU9EnT-M-T63NBocF8dWVV7Uev9ZN5kwzLZ2kpRQi91jPyhYTurRRu7wwIrDmL__3ICtyZB6d2bX6wrzccEbHrXZWCtR7auwYTW3RlFdj7uQeSC2Lb2j3C4uLvZ2yi_mLJpU`, // Spotify 액세스 토큰
-				},
-			})
-			.then((response) => {
-				const tracks = response.data.albums.items.map((album, index) => {
-					return {
-						id: index.id,
+		// Spotify API에서 데이터 가져오기
+		const fetchData = async () => {
+			try {
+				const response = await axios.get(
+					'https://api.spotify.com/v1/browse/new-releases',
+					{
+						headers: {
+							Authorization: `Bearer BQBgCkTKLzAN_uhaSZ3oIfLIwbQKFi023VK8GbuKz17MhRwEPhvaVkoGkxuxLuFZ1YH8XunIXqTZL_9AZped833bOvSNWA5JdnJ4zvpx-yHkUN8haUxI6YyIviT1sNKRLKfizKSm3j0Ij06hBe0_X7sIRVo2mePOEHGfGNie_UjjuokN2GorHiXLmWeJLzzYntu1N48f9KJKSXy-rPQ-0optYAkRL0CAO33wdHSN4dY97oOep8iTWttVkCDH3--WloSY1xCLXhTMz1Xw`, // Spotify 액세스 토큰
+						},
+					}
+				);
+				const tracks = response.data.albums.items.map(
+					(album: any, index: any) => ({
+						id: album.id,
 						title: album.name,
-						artist: album.artists.map((artist) => artist.name).join(', '),
+						artist: album.artists.map((artist: any) => artist.name).join(', '),
 						image: album.images[0].url,
 						releaseDate: album.release_date.split('-')[0],
-					};
-				});
-
+					})
+				);
 				setChartData(tracks);
-			})
-			.catch((error) => {
+			} catch (error) {
 				console.error('Error fetching music chart data:', error);
-			});
+			}
+		};
+
+		fetchData();
 	}, []);
 
 	return (
@@ -90,9 +111,9 @@ function SelectionSlide() {
 			</Button>
 			<SliderContainer ref={slideRef}>
 				{chartData.map((track, index) => (
-					<SongList key={index.id}>
+					<SongList key={track.id}>
 						<ListContents
-							key={index.id}
+							key={track.id}
 							onMouseOver={() => setHover(index)}
 							onMouseOut={() => setHover(null)}
 						>

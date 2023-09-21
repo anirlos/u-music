@@ -2,9 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 import SelectionSlider from '../components/SelectionSlider';
-import Modal from '../components/Modal';
+// import Modal from '../components/Modal';
 import ReplaySlider from '../components/ReplaySlider';
 import MusicSearch from '../components/MusicSearch';
+
+import Modal from '../components/Modal';
 
 function Home() {
 	return (

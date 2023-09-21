@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 
-const MusicSearch = () => {
-	const [query, setQuery] = useState('');
-	const [results, setResults] = useState([]);
+interface Track {
+	id: string;
+	name: string;
+	artists: { name: string }[];
+	external_urls: { spotify: string };
+}
 
-	const handleChange = (e) => {
+const MusicSearch: React.FC = () => {
+	const [query, setQuery] = useState<string>('');
+	const [results, setResults] = useState<Track[]>([]);
+
+	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setQuery(e.target.value);
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		// Spotify API 호출

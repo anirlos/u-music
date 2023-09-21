@@ -1,18 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Modal({ isOpen, onClose }) {
+interface ModalProps {
+	isOpen: boolean;
+	onClose: () => void;
+}
+
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
 	if (!isOpen) {
 		return null;
 	}
 
-	// Add your modal content here
+	const handleModalClick = (e: React.MouseEvent) => {
+		// 모달 바깥 영역 클릭 시 모달을 닫음
+		if (e.target === e.currentTarget) {
+			onClose();
+		}
+	};
 
 	return (
-		<ModalContainer onClick={onClose}>
-			<CloseButton>x</CloseButton>
+		<ModalContainer onClick={handleModalClick}>
+			<CloseButton onClick={onClose}>x</CloseButton>
 			<ModalContent>
-				{/* Add your modal content here */}
 				<ul>
 					<li>
 						<a href="#">
@@ -58,7 +67,7 @@ function Modal({ isOpen, onClose }) {
 			</ModalContent>
 		</ModalContainer>
 	);
-}
+};
 
 const ModalContainer = styled.div`
 	z-index: 100;

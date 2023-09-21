@@ -6,14 +6,22 @@ import { TfiArrowCircleLeft, TfiArrowCircleRight } from 'react-icons/tfi'; //
 import { RiMore2Line } from 'react-icons/ri';
 import user from '../img/user.jpg';
 
+interface Track {
+	id: string;
+	title: string;
+	artist: string;
+	image: string;
+	releaseDate: string;
+}
+
 function ReplaySliderTest() {
-	const [hover, setHover] = useState(false);
-	const [modalOpen, setModalOpen] = useState(false);
-	const modalBackground = useRef();
+	const [hover, setHover] = useState<number | null>(null);
+	const [modalOpen, setModalOpen] = useState<number | null>(null);
+	const modalBackground = useRef<HTMLDivElement>(null);
 
-	const [chartData, setChartData] = useState([]);
+	const [chartData, setChartData] = useState<Track[]>([]);
 
-	const openModal = (index) => {
+	const openModal = (index: number) => {
 		// 모달 열 때 body의 스크롤 비활성화
 		document.body.style.overflow = 'hidden';
 		setModalOpen(index);
@@ -22,30 +30,34 @@ function ReplaySliderTest() {
 	const closeModal = () => {
 		// 모달 닫을 때 body의 스크롤 다시 활성화
 		document.body.style.overflow = 'auto';
-		setModalOpen(false);
+		setModalOpen(null);
 	};
 
 	useEffect(() => {
 		// Spotify API에서 최신 음악 차트 데이터 가져오기
-		const spotifyClientId = '78cf2caf0c014010ba9267597eaac6a3'; // Spotify 클라이언트 ID
+
 		const spotifyApiUrl = 'https://api.spotify.com/v1/browse/new-releases';
 
 		axios
 			.get(spotifyApiUrl, {
 				headers: {
-					Authorization: `Bearer BQCB8xp0RkkKWT0eD21Df3rTqiISlpjiO3wxo38dLuWtfdacLjHLQR5z4BiJAoUAQoGTOblqVhsCS2NyOe1r1pDHn6rpg3KKLbx2ZEFAcilYYZ6iXCgSPnUvIiRSWYhRqgapdvb8LjabVU9EnT-M-T63NBocF8dWVV7Uev9ZN5kwzLZ2kpRQi91jPyhYTurRRu7wwIrDmL__3ICtyZB6d2bX6wrzccEbHrXZWCtR7auwYTW3RlFdj7uQeSC2Lb2j3C4uLvZ2yi_mLJpU`, // Spotify 액세스 토큰
+					Authorization: `Bearer BQBgCkTKLzAN_uhaSZ3oIfLIwbQKFi023VK8GbuKz17MhRwEPhvaVkoGkxuxLuFZ1YH8XunIXqTZL_9AZped833bOvSNWA5JdnJ4zvpx-yHkUN8haUxI6YyIviT1sNKRLKfizKSm3j0Ij06hBe0_X7sIRVo2mePOEHGfGNie_UjjuokN2GorHiXLmWeJLzzYntu1N48f9KJKSXy-rPQ-0optYAkRL0CAO33wdHSN4dY97oOep8iTWttVkCDH3--WloSY1xCLXhTMz1Xw`, // Spotify 액세스 토큰
 				},
 			})
 			.then((response) => {
-				const tracks = response.data.albums.items.map((album, index) => {
-					return {
-						id: index.id,
-						title: album.name,
-						artist: album.artists.map((artist) => artist.name).join(', '),
-						image: album.images[0].url,
-						releaseDate: album.release_date.split('-')[0],
-					};
-				});
+				const tracks = response.data.albums.items.map(
+					(album: any, index: number) => {
+						return {
+							id: album.id,
+							title: album.name,
+							artist: album.artists
+								.map((artist: any) => artist.name)
+								.join(', '),
+							image: album.images[0].url,
+							releaseDate: album.release_date.split('-')[0],
+						};
+					}
+				);
 
 				setChartData(tracks);
 			})
@@ -54,7 +66,7 @@ function ReplaySliderTest() {
 			});
 	}, []);
 
-	const sliderRef = useRef(null);
+	const sliderRef = useRef<HTMLDivElement>(null);
 
 	const scrollLeft = () => {
 		if (sliderRef.current) {
@@ -92,9 +104,9 @@ function ReplaySliderTest() {
 			{/* slide */}
 			<SliderContainer ref={sliderRef}>
 				{chartData.map((track, index) => (
-					<ReplayCard key={index.id}>
+					<ReplayCard key={track.id}>
 						<AlbumImg
-							key={index.id}
+							key={track.id}
 							onMouseOver={() => setHover(index)}
 							onMouseOut={() => setHover(null)}
 						>
@@ -283,8 +295,7 @@ const ArrowButton = styled.div`
 	position: absolute;
 	z-index: 1;
 	top: 20%;
-	right: ${({ mediaQuery }) =>
-		mediaQuery ? '10%' : '0'}; /* 화면 크기에 따라 right 속성 조정 */
+	right: 10%;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
