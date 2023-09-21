@@ -1,4 +1,4 @@
-import { TimeMs } from "types";
+import { TimeMs } from "../types";
 
 export const useTime = (): TimeMs => {
   const msToTime = (duration: number): string => {

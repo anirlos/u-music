@@ -1,11 +1,11 @@
 import React, { FC, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import dummydata from "assets/dummydatas/dummydata";
-import { SongData } from "types";
-import { addToLibrary } from "redux/reducers/library-slice";
+import dummyData from "../../assets/dummydatas/dummydata";
+import { SongData } from "../../types";
+import { addToLibrary } from "../../redux/reducers/library-slice";
 import { LibraryRootState } from "../../redux/store/LibraryStore";
 import styled from "styled-components";
-import Modal from "components/modals/Modal";
+import Modal from "../modals/Modal";
 
 const Home: FC = () => {
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ const Home: FC = () => {
     <Container>
       <div className="songs-container">
         <h2>노래</h2>
-        {dummydata.map((item: SongData) => (
+        {dummyData.map((item: SongData) => (
           <div key={item.id}>
             <img
               src={process.env.PUBLIC_URL + "/image/" + item.thumbnail}

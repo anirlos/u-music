@@ -1,9 +1,9 @@
 import React, { FC, useCallback } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { useTime } from "hooks/useTime";
-import { removeFromLibrary } from "redux/reducers/library-slice";
-import { SongData } from "types";
+import { useTime } from "../hooks/useTime";
+import { removeFromLibrary } from "../redux/reducers/library-slice";
+import { SongData } from "../types";
 import { FaPlay, FaTrashCan } from "react-icons/fa6";
 
 interface LibraryItemProps {

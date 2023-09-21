@@ -1,4 +1,4 @@
-import { SongData } from "types";
+import { SongData } from "../../types";
 
 const dummyData: SongData[] = [
   {

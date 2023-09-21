@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { LibraryRootState } from "redux/store/LibraryStore";
-import LibraryItem from "components/LibraryItem";
+import { LibraryRootState } from "../../redux/store/LibraryStore";
+import LibraryItem from "../LibraryItem";
 
 const Library: FC = () => {
   const savedSongs = useSelector(

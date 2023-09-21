@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { SongData } from "types";
+import { SongData } from "../../types";
 
 interface LibraryState {
   savedSongs: SongData[];
