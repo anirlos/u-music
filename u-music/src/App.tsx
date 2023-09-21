@@ -17,7 +17,7 @@ function App() {
   return (
     <div>
       <Newplaylistbtn label="+ 새 재생목록" onClick={handleOpenModal} />
-      <NewplaylistModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      <NewplaylistModal isOpen={isModalOpen} onClose={handleCloseModal}  />
     </div>
   );
 }

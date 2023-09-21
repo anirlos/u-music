@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch } from 'react-redux';
 import { createPlaylist } from '../redux/actionCreators';
+import { useNavigate } from 'react-router-dom';
 
 interface ModalProps {
   isOpen: boolean;
@@ -14,6 +15,7 @@ const NewPlaylistModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const [playlistDescription, setPlaylistDescription] = useState("");
   const [playlistVisibility, setPlaylistVisibility] = useState("public");
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // useNavigate를 컴포넌트 최상위 레벨에서 호출
 
   // 모달 상태 초기화 함수
   const resetModalState = () => {
@@ -63,6 +65,9 @@ const NewPlaylistModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
 
       // 모달 닫기
       onClose();
+
+      // 네비게이션 수행
+      navigate('/New-playlist'); // New-playlist 페이지로 이동
     }
   };
 

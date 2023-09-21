@@ -10,7 +10,6 @@ import album4Img from "../img/album4.jpg";
 import album5Img from "../img/album5.jpg";
 import album6Img from "../img/album6.jpg";
 
-
 interface NewPlaylistListPageProps {
   // NewPlaylistListPage 컴포넌트의 props 정의
 }
@@ -66,18 +65,22 @@ const mockMusicData = [
   },
 ];
 
-const NewPlaylistListPage: React.FC<NewPlaylistListPageProps> = () => {
+const NewPlaylistPage: React.FC<NewPlaylistListPageProps> = () => {
   return (
     <PageContainer>
       <AlbumInfoContainer>
-        <Albumart />
-        <h1>새 재생목록</h1>
-        <PlaylistInfo
-          author={""}
-          isPublic={false}
-          songCount={0}
-          durationSeconds={0}
-        />
+        <LeftColumn>
+          <Albumart />
+        </LeftColumn>
+        <RightColumn>
+          <h1>새 재생목록</h1>
+          <PlaylistInfo
+            author={""}
+            isPublic={false}
+            songCount={0}
+            durationSeconds={0}
+          />
+        </RightColumn>
       </AlbumInfoContainer>
       <MusicListContainer>
         <MusicList musicData={mockMusicData} />
@@ -98,18 +101,32 @@ const PageContainer = styled.div`
 
 const AlbumInfoContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 20px;
   margin-top: 20px;
 `;
 
-const MusicListContainer = styled.div`
-width: 100%;
-max-width: 600px;
-margin-top: 20px;
-display: flex;
-gap: 20px;
+const LeftColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 `;
 
+const RightColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  margin: 1rem;
+  
+`;
 
-export default NewPlaylistListPage;
+const MusicListContainer = styled.div`
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+export default NewPlaylistPage;

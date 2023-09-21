@@ -24,11 +24,10 @@ const MusicList = ({ musicData }) => {
 const MusicListItem = styled.div`
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
   text-align: center;
   justify-content: space-between; 
   border-bottom: 1px solid #fff;  
-  padding-bottom: 1rem;
   border: 0;
   box-shadow: 0 0.7px #5b5b5b; /* 1px 이하의 border 처리 */
   color: #fff;
@@ -44,10 +43,9 @@ const MusicListItem = styled.div`
 const MusicListContainer = styled.div`
   width: 100%;
   max-width: 600px;
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
-  gap: 30px; 
+  gap: 10px; 
 `;
 
 export default MusicList;
