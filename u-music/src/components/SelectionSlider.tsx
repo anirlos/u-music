@@ -76,7 +76,7 @@ function SelectionSlide() {
 					'https://api.spotify.com/v1/browse/new-releases',
 					{
 						headers: {
-							Authorization: `Bearer BQBgpsrs_X3jI7jXJyL6ufHweiYwQeUZwv5aZ-BD2_trhSZq53bdy_vTIt6WeXREfBtU6QkXRRasdblpSP_TR8qUEt2yn0GBSPCucc_wQfhI49apI8eplWRAgxVjvINSFC_6rk8dj8PvGjY53nayBZNNnTasNhT42E819u1VzS3NdSi35pXNPntLt1f_t1nYUyc5Dsa8ytfdbR0ho4OS0VtW2vfbN9rf5mz4r1funnj0HSp9l3PzdyNbDifRcJigDYCcdcRKD6wvI7-1`,
+							Authorization: `Bearer BQAeZMSB60YmuFK4zaRhjnbm7jvYnq60D8r8s6GyzHwMmgb61izERZ2VMUPrEkx1yrUXpDo3m7sVLeWVhjoItGOyLN2GgMC99dP2a2MYmw-7XXyx9mCbV7OLzepbRHM679hhXgliJ6WqWfCPhd0yeGfhtgFGD5i9-fkiaMSXMAg72FDmmj9c0d7DTrnnWI9x5-8ZVK1JX9v3tnLLRapOOC5JLYtwspVNRHJdUqGsapCkSB0zhsOb0XhF5vGYhy3f3bBTBGtfEZMt_uKe`,
 						},
 					}
 				);
@@ -100,23 +100,25 @@ function SelectionSlide() {
 
 	return (
 		<Container>
-			<Name>
-				<p>이 노래로 뮤직 스테이션 시작하기</p>
-				<h1>빠른 선곡</h1>
-			</Name>
-			<Button>
-				<PlayButton>
-					<span>모두재생</span>
-				</PlayButton>
-				<ArrowButton>
-					<ScrollButton onClick={scrollLeft}>
-						<TfiArrowCircleLeft color="#fff" />
-					</ScrollButton>
-					<ScrollButton onClick={scrollRight}>
-						<TfiArrowCircleRight color="#fff" />
-					</ScrollButton>
-				</ArrowButton>
-			</Button>
+			<Title>
+				<Name>
+					<p>이 노래로 뮤직 스테이션 시작하기</p>
+					<h1>빠른 선곡</h1>
+				</Name>
+				<Button>
+					<PlayButton>
+						<span>모두재생</span>
+					</PlayButton>
+					<ArrowButton>
+						<ScrollButton onClick={scrollLeft}>
+							<TfiArrowCircleLeft color="#fff" />
+						</ScrollButton>
+						<ScrollButton onClick={scrollRight}>
+							<TfiArrowCircleRight color="#fff" />
+						</ScrollButton>
+					</ArrowButton>
+				</Button>
+			</Title>
 			<SliderContainer ref={slideRef}>
 				{chartData.map((track, index) => (
 					<SongList key={track.id}>
@@ -162,8 +164,8 @@ const Container = styled.div`
 const Title = styled.div`
 	display: flex;
 	flex-direction: row;
-	justify-content: flex-start;
-	align-items: center;
+	justify-content: space-between;
+	align-items: flex-end;
 	max-width: 1440px;
 	margin: 0 auto;
 	padding: 32px 0 24px 0;

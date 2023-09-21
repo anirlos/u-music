@@ -14,23 +14,17 @@ interface Track {
 	releaseDate: string;
 }
 
-function ReplaySliderTest() {
+function ReplaySlider() {
 	const [hover, setHover] = useState<number | null>(null);
-	const [modalOpen, setModalOpen] = useState<number | null>(null);
+	const [isOpen, setIsOpen] = useState(false);
 	const modalBackground = useRef<HTMLDivElement>(null);
 
 	const [chartData, setChartData] = useState<Track[]>([]);
 
-	const openModal = (index: number) => {
-		// 모달 열 때 body의 스크롤 비활성화
-		document.body.style.overflow = 'hidden';
-		setModalOpen(index);
-	};
-
 	const closeModal = () => {
 		// 모달 닫을 때 body의 스크롤 다시 활성화
 		document.body.style.overflow = 'auto';
-		setModalOpen(null);
+		setIsOpen(false);
 	};
 
 	useEffect(() => {
@@ -41,7 +35,7 @@ function ReplaySliderTest() {
 		axios
 			.get(spotifyApiUrl, {
 				headers: {
-					Authorization: `Bearer BQBgpsrs_X3jI7jXJyL6ufHweiYwQeUZwv5aZ-BD2_trhSZq53bdy_vTIt6WeXREfBtU6QkXRRasdblpSP_TR8qUEt2yn0GBSPCucc_wQfhI49apI8eplWRAgxVjvINSFC_6rk8dj8PvGjY53nayBZNNnTasNhT42E819u1VzS3NdSi35pXNPntLt1f_t1nYUyc5Dsa8ytfdbR0ho4OS0VtW2vfbN9rf5mz4r1funnj0HSp9l3PzdyNbDifRcJigDYCcdcRKD6wvI7-1`,
+					Authorization: `Bearer BQAeZMSB60YmuFK4zaRhjnbm7jvYnq60D8r8s6GyzHwMmgb61izERZ2VMUPrEkx1yrUXpDo3m7sVLeWVhjoItGOyLN2GgMC99dP2a2MYmw-7XXyx9mCbV7OLzepbRHM679hhXgliJ6WqWfCPhd0yeGfhtgFGD5i9-fkiaMSXMAg72FDmmj9c0d7DTrnnWI9x5-8ZVK1JX9v3tnLLRapOOC5JLYtwspVNRHJdUqGsapCkSB0zhsOb0XhF5vGYhy3f3bBTBGtfEZMt_uKe`,
 				},
 			})
 			.then((response) => {
@@ -111,30 +105,24 @@ function ReplaySliderTest() {
 							onMouseOut={() => setHover(null)}
 						>
 							<img src={track.image} alt={`${track.title} 앨범 이미지`} />
-							<MoreIcon onClick={() => openModal(index)}>
+							<MoreIcon onClick={() => setIsOpen(true)}>
 								{hover === index && <RiMore2Line color="#fff" />}
 							</MoreIcon>
 						</AlbumImg>
 						<p>{track.title}</p>
 						<p>{track.artist}</p>
 						<span>{track.releaseDate}</span>
-						{modalOpen === index && (
-							<ModalContainer
-								ref={modalBackground}
-								onClick={(e) => {
-									if (e.target === modalBackground.current) {
-										closeModal();
-									}
-								}}
-							>
-								<ModalWrap>
-									<Modal isOpen={modalOpen === index} onClose={closeModal} />
-								</ModalWrap>
-							</ModalContainer>
-						)}
 					</ReplayCard>
 				))}
 			</SliderContainer>
+			{isOpen && (
+				<Modal
+					open={isOpen}
+					onClose={() => {
+						closeModal();
+					}}
+				/>
+			)}
 		</Container>
 	);
 }
@@ -269,15 +257,7 @@ const AlbumImg = styled.div`
 	}
 `;
 
-const MoreIcon = styled.div`
-	position: absolute;
-	top: 10%;
-	right: 0%;
-	transform: translate(-50%, -50%);
-	text-align: center;
-`;
-
-const ModalContainer = styled.div`
+const ModalBox = styled.div`
 	position: absolute;
 
 	top: 10%;
@@ -287,8 +267,19 @@ const ModalContainer = styled.div`
 
 const ModalWrap = styled.div`
 	position: fixed;
-	overflow: auto;
-	z-index: 103;
+	top: 0;
+	right: 0;
+	text-align: center;
+	margin: 50px auto;
+`;
+
+const MoreIcon = styled.div`
+	position: absolute;
+	top: 10%;
+	right: 10%;
+	z-index: 100;
+	&:hover {
+	}
 `;
 
 const ArrowButton = styled.div`
@@ -313,4 +304,4 @@ const ScrollButton = styled.button`
 	}
 `;
 
-export default ReplaySliderTest;
+export default ReplaySlider;
