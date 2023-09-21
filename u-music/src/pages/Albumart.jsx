@@ -5,7 +5,7 @@ import styled from "styled-components";
 function AlbumArt() {
   return (
     <ImgContainer>
-      <img src={defaultAlbumImage} alt="앨범 아트" width={200} height={200} />
+      <img src={defaultAlbumImage} alt="앨범 아트" width={240} height={240} />
     </ImgContainer>
   );
 }

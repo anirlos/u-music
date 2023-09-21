@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { createPlaylist } from '../redux/actionCreators';
 
 interface ModalProps {
   isOpen: boolean;
@@ -9,11 +10,35 @@ interface ModalProps {
 
 const NewPlaylistModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   const [playlistTitle, setPlaylistTitle] = useState("");
+  const [titleError, setTitleError] = useState("");
   const [playlistDescription, setPlaylistDescription] = useState("");
   const [playlistVisibility, setPlaylistVisibility] = useState("public");
+  const dispatch = useDispatch();
+
+  // 모달 상태 초기화 함수
+  const resetModalState = () => {
+    setPlaylistTitle("");
+    setTitleError("");
+    setPlaylistDescription("");
+    setPlaylistVisibility("public");
+  };
+
+  // 모달이 열릴 때 모달 상태 초기화
+  useEffect(() => {
+    if (isOpen) {
+      resetModalState();
+    }
+  }, [isOpen]);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPlaylistTitle(e.target.value);
+    const title = e.target.value;
+    setPlaylistTitle(title);
+
+    if (title.trim() === "") {
+      setTitleError("필수 입력란");
+    } else {
+      setTitleError("");
+    }
   };
 
   const handleDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,11 +50,20 @@ const NewPlaylistModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   };
 
   const handleCreatePlaylist = () => {
-    // 새 재생목록 생성 로직 작성
-    // 예: API 호출, 상태 업데이트
+    if (playlistTitle.trim() === "") {
+      setTitleError("필수 입력란");
+    } else {
+      // Redux 액션을 디스패치하여 새 재생목록 추가
+      const newPlaylistData = {
+        title: playlistTitle,
+        description: playlistDescription,
+        visibility: playlistVisibility,
+      };
+      dispatch(createPlaylist(newPlaylistData));
 
-    // 모달을 닫습니다.
-    onClose();
+      // 모달 닫기
+      onClose();
+    }
   };
 
   if (!isOpen) return null;
@@ -47,6 +81,7 @@ const NewPlaylistModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
               onChange={handleTitleChange}
               placeholder="제목"
             />
+            {titleError && <div style={{ color: "red" }}>{titleError}</div>}
             <input
               type="text"
               id="description"
@@ -63,19 +98,14 @@ const NewPlaylistModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
               onChange={handleVisibilityChange}
             >
               <option value="public">공개</option>
-              <option value="public">일부 공개</option>
               <option value="private">비공개</option>
             </select>
           </InputText>
         </ContentContainer>
         <ModalButton>
-          <Link
-            to="/New-playlist"
-            className="create-button"
-            onClick={handleCreatePlaylist}
-          >
+          <button className="create-button" onClick={handleCreatePlaylist}>
             만들기
-          </Link>
+          </button>
           <button className="close-button" onClick={onClose}>
             취소
           </button>
