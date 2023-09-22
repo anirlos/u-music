@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Library from "./pages/Library";
 import FakeNav from "./components/FakeNav";
 import FakeCategory from "./components/FakeCategory";
-import FakeHome from "./pages/FakeHome";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -15,11 +15,12 @@ function App() {
         <FakeNav />
 
         <MainContainer>
-          {/* 카테고리를 통한 페이지 이동 임시 Route */}
+          {/* 카테고리를 통한 페이지 이동 임시 Route 및 임시 Category */}
           <FakeCategory />
+
           <Routes>
-            {/* 임시 home */}
-            <Route path="/" element={<FakeHome />}></Route>
+            {/* 실제 아름님 Home연결 */}
+            <Route path="/" element={<Home />}></Route>
 
             {/* 담당 부분 보관함인 Library */}
             <Route path="/library" element={<Library />}></Route>

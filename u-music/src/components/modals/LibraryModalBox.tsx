@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect } from "react";
+import React, { FC, ReactNode, useEffect } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components";
 
@@ -7,7 +7,7 @@ interface ModalProps {
   onClose: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ children, onClose }) => {
+const LibraryModalBox: FC<ModalProps> = ({ children, onClose }) => {
   const el = document.createElement("div");
 
   useEffect(() => {
@@ -39,10 +39,12 @@ const ModalOverlay = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 10000;
 `;
 
 const ModalComponents = styled.div`
   position: relative;
+  padding: 5px;
 `;
 
-export default Modal;
+export default LibraryModalBox;

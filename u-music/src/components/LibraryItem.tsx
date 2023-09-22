@@ -1,7 +1,6 @@
 import React, { FC, useCallback } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { useTime } from "../hooks/useTime";
 import { removeFromLibrary } from "../redux/reducers/library-slice";
 import { SongData } from "../types";
 import { FaPlay, FaTrashCan } from "react-icons/fa6";
@@ -13,10 +12,8 @@ interface LibraryItemProps {
 const LibraryItem: FC<LibraryItemProps> = ({ song }) => {
   const dispatch = useDispatch();
 
-  const { msToTime } = useTime();
-
   const handleRemoveFromLibrary = useCallback(
-    (id: number) => {
+    (id: string | number) => {
       dispatch(removeFromLibrary(id));
     },
     [dispatch]
@@ -25,10 +22,7 @@ const LibraryItem: FC<LibraryItemProps> = ({ song }) => {
   return (
     <Item>
       <ItemLeft className="item-thumbnail">
-        <img
-          src={process.env.PUBLIC_URL + "/image/" + song.thumbnail}
-          alt={song.title}
-        />
+        <img src={song.image} alt={song.title} />
         <ItemHover>
           <div className="play-icon">
             <FaPlay />
@@ -43,7 +37,7 @@ const LibraryItem: FC<LibraryItemProps> = ({ song }) => {
 
         <div className="item-info-flex">
           <p className="item-artist">{song.artist}</p>
-          <p className="item-albumtitle">{song.albumTitle}</p>
+          <p className="item-albumtitle">{song.title}</p>
         </div>
       </ItemMiddle>
 
@@ -53,7 +47,7 @@ const LibraryItem: FC<LibraryItemProps> = ({ song }) => {
             <FaTrashCan />
           </button>
         </ItemHover>
-        <p className="item-time">{msToTime(song.duration_ms)}</p>
+        <p className="item-releaseDate">{song.releaseDate}</p>
       </ItemRight>
     </Item>
   );
@@ -79,7 +73,7 @@ const ItemHover = styled.div`
     justify-content: center;
     background: transparent;
     border: none;
-    font-size: 1rem;
+    font-size: 0.875rem;
     color: gray;
     cursor: pointer;
     &:hover {
@@ -92,6 +86,7 @@ const ItemHover = styled.div`
 const Item = styled.div`
   /* category 240px이라 가정한 경우(고정) */
   width: min(calc(100vw - 452px), 1478px);
+  min-width: 400px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -113,6 +108,7 @@ const Item = styled.div`
 const ItemLeft = styled.div`
   width: 32px;
   height: 32px;
+  min-width: 32px;
   border-radius: 2px;
   overflow: hidden;
   display: flex;
@@ -129,18 +125,21 @@ const ItemLeft = styled.div`
 const ItemMiddle = styled.div`
   display: flex;
   flex: 1;
-  flex-grow: 4 6;
-  font-size: 1rem;
+  flex-grow: 2 3;
+  font-size: 0.875rem;
   align-items: center;
   p {
     white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
   }
   div.item-info-title {
     display: flex;
-    flex: 1;
+    flex: 2;
+    min-width: 150px;
     justify-content: space-between;
     overflow: hidden;
+    padding-right: 10px;
     p {
       color: #fff;
       font-weight: 500;
@@ -148,16 +147,21 @@ const ItemMiddle = styled.div`
   }
   div.item-info-flex {
     display: flex;
-    flex: 2;
+    flex: 3;
     color: rgba(255, 255, 255, 0.7);
     font-weight: 400;
+
     p.item-artist {
       display: flex;
-      flex: 2;
+      flex: 1;
+      margin-right: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     p.item-albumtitle {
       display: flex;
-      flex: 3;
+      flex: 1;
     }
   }
 
@@ -197,8 +201,9 @@ const ItemRight = styled.div`
   display: flex;
   align-items: center;
   margin-left: 16px;
+  /* min-width: 100px; */
   p {
-    font-size: 1rem;
+    font-size: 0.875rem;
     color: rgba(255, 255, 255, 0.7);
     margin-left: 16px;
   }

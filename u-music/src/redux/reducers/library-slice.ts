@@ -3,10 +3,12 @@ import { SongData } from "../../types";
 
 interface LibraryState {
   savedSongs: SongData[];
+  isDuplicate: boolean;
 }
 
 const initialState: LibraryState = {
   savedSongs: [],
+  isDuplicate: false,
 };
 
 const librarySlice = createSlice({
@@ -14,8 +16,17 @@ const librarySlice = createSlice({
   initialState,
   reducers: {
     addToLibrary: (state, action: PayloadAction<SongData>) => {
-      state.savedSongs.push(action.payload);
-      localStorage.setItem("savedSongs", JSON.stringify(state.savedSongs));
+      const isSongSaved = state.savedSongs.some(
+        (savedSong) => savedSong.id === action.payload.id
+      );
+
+      if (isSongSaved) {
+        state.isDuplicate = true;
+      } else {
+        state.isDuplicate = false;
+        state.savedSongs.push(action.payload);
+        localStorage.setItem("savedSongs", JSON.stringify(state.savedSongs));
+      }
     },
     removeFromLibrary: (state, action) => {
       const index = state.savedSongs.findIndex(
@@ -26,9 +37,13 @@ const librarySlice = createSlice({
       }
       localStorage.setItem("savedSongs", JSON.stringify(state.savedSongs));
     },
+    resetDuplicateState: (state) => {
+      state.isDuplicate = false;
+    },
   },
 });
 
-export const { addToLibrary, removeFromLibrary } = librarySlice.actions;
+export const { addToLibrary, removeFromLibrary, resetDuplicateState } =
+  librarySlice.actions;
 
 export default librarySlice.reducer;

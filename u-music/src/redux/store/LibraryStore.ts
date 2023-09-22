@@ -6,6 +6,7 @@ export type LibraryRootState = ReturnType<typeof store.getState>;
 const preloadedState = {
   library: {
     savedSongs: JSON.parse(localStorage.getItem("savedSongs") || "[]"),
+    isDuplicate: false,
   },
 };
 
