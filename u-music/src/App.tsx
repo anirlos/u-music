@@ -2,10 +2,10 @@ import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
-import Library from "./components/pages/Library";
+import Library from "./pages/Library";
 import FakeNav from "./components/FakeNav";
 import FakeCategory from "./components/FakeCategory";
-import FakeHome from "./components/pages/FakeHome";
+import FakeHome from "./pages/FakeHome";
 
 function App() {
   return (

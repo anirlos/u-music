@@ -1,11 +1,11 @@
 import React, { FC, useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import dummyData from "../../assets/dummydatas/dummydata";
-import { SongData } from "../../types";
-import { addToLibrary } from "../../redux/reducers/library-slice";
-import { LibraryRootState } from "../../redux/store/LibraryStore";
+import dummyData from "../assets/dummydatas/dummydata";
+import { SongData } from "../types";
+import { addToLibrary } from "../redux/reducers/library-slice";
+import { LibraryRootState } from "../redux/store/LibraryStore";
 import styled from "styled-components";
-import LibraryModalBox from "../modals/LibraryModalBox";
+import LibraryModalBox from "../components/modals/LibraryModalBox";
 
 const Home: FC = () => {
   const dispatch = useDispatch();
