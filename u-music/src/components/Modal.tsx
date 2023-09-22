@@ -35,16 +35,9 @@ const Modal: FC<ModalProps> = ({ open, onClose }) => {
 	}, []);
 
 	return (
-		<ModalContainer>
+		<ModalBox>
 			<Overlay ref={modalRef}>
 				<ModalWrap>
-					<MoreIcon
-						onMouseOver={() => setHover(true)} // hover 인터랙션 추가
-						onMouseLeave={() => setHover(false)}
-					>
-						{hover && <RiMore2Line color="#fff" />}
-					</MoreIcon>
-
 					<Contents>
 						<li>
 							<a href="#">
@@ -89,30 +82,28 @@ const Modal: FC<ModalProps> = ({ open, onClose }) => {
 					</Contents>
 				</ModalWrap>
 			</Overlay>
-		</ModalContainer>
+		</ModalBox>
 	);
 };
 export default Modal;
 // 스타일 컴포넌트를 사용하여 스타일링
 
-const Overlay = styled.div`
-	position: absolute;
+const ModalBox = styled.div`
+	position: fixed;
 	top: 0;
-	left: 0;
-	/* width: 10;
-	height: 50%; */
-	/* background-color: rgba(0, 0, 0, 0.7); */
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	left: 10%;
+	z-index: 9999;
 `;
 
-const ModalWrap = styled.div`
-	background-color: #212121;
-	color: #fff;
-	padding: 20px;
-	border-radius: 8px;
+const Overlay = styled.div`
+	display: flex;
+
+	justify-content: center;
+	align-items: center;
+	z-index: 103;
 `;
+
+const ModalWrap = styled.div``;
 
 // const CloseButton = styled.button`
 // 	position: absolute;
@@ -124,23 +115,17 @@ const ModalWrap = styled.div`
 // 	cursor: pointer;
 // `;
 
-const MoreIcon = styled.div`
-	position: absolute;
-	top: 10%;
-	right: 0%;
-	transform: translate(-50%, -50%);
-	text-align: center;
-`;
-
 const Contents = styled.ul`
-	text-align: left;
-	padding: 5px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+	background-color: #212121;
+	position: fixed;
+
+	top: -10%;
+	left: 10%;
+	width: 240px;
 	li {
 		list-style: none;
 		opacity: 0.8;
+		margin-bottom: 10px;
 		a {
 			text-decoration: none;
 			p {
@@ -149,7 +134,7 @@ const Contents = styled.ul`
 			}
 		}
 		&:hover {
-			transition: 0.3s;
+			transition: 0;
 			text-decoration: underline;
 			font-weight: bold;
 			opacity: 1;

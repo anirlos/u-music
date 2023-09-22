@@ -1,5 +1,5 @@
 import React from 'react';
-
+import styled from 'styled-components';
 import SelectionSlider from '../components/SelectionSlider';
 
 import ReplaySlider from '../components/ReplaySlider';
@@ -13,10 +13,18 @@ function Home() {
 			{/* <PlaylistSlider /> */}
 			<ReplaySlider />
 			<SelectionSlider />
-
-			<Modal />
+			<ModalBox>
+				<Modal />
+			</ModalBox>
 		</div>
 	);
 }
+
+const ModalBox = styled.div`
+	position: fixed;
+	top: 0;
+	left: 10%;
+	z-index: 9999;
+`;
 
 export default Home;

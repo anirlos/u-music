@@ -16,16 +16,9 @@ interface Track {
 
 function ReplaySlider() {
 	const [hover, setHover] = useState<number | null>(null);
-	const [isOpen, setIsOpen] = useState(false);
-	const modalBackground = useRef<HTMLDivElement>(null);
-
+	const [openModals, setOpenModals] = useState<boolean[]>([]);
+	const [isOpen, setIsOpen] = useState<number | null>(null);
 	const [chartData, setChartData] = useState<Track[]>([]);
-
-	const closeModal = () => {
-		// 모달 닫을 때 body의 스크롤 다시 활성화
-		document.body.style.overflow = 'auto';
-		setIsOpen(false);
-	};
 
 	useEffect(() => {
 		// Spotify API에서 최신 음악 차트 데이터 가져오기
@@ -35,7 +28,7 @@ function ReplaySlider() {
 		axios
 			.get(spotifyApiUrl, {
 				headers: {
-					Authorization: `Bearer BQAeZMSB60YmuFK4zaRhjnbm7jvYnq60D8r8s6GyzHwMmgb61izERZ2VMUPrEkx1yrUXpDo3m7sVLeWVhjoItGOyLN2GgMC99dP2a2MYmw-7XXyx9mCbV7OLzepbRHM679hhXgliJ6WqWfCPhd0yeGfhtgFGD5i9-fkiaMSXMAg72FDmmj9c0d7DTrnnWI9x5-8ZVK1JX9v3tnLLRapOOC5JLYtwspVNRHJdUqGsapCkSB0zhsOb0XhF5vGYhy3f3bBTBGtfEZMt_uKe`,
+					Authorization: `Bearer BQCwy0vApX4BI9z6vNNjpmSQ-0P5-9KcosKkUrwr2IVsgDfgZocrTgjbAQ05Hx4ketwUCSjX8EcErkQXt3h523lCLtQDxmqquDQWefRa3k5hUlkhhjB5x6sUMFcUo_yViiwCD4CxyTu8Cu9KTQ07V0upuMgM_FQJueC-s2TroaAFZYilcsnX2QZnU6uq28jrfUCbYDfAgA-UQi2nZJy6Jqut0rl20SII06rOkPSDMV28RUFvUO6W0senZ1ng4AaEVQzdRgnEm3LA_FFl`,
 				},
 			})
 			.then((response) => {
@@ -54,6 +47,7 @@ function ReplaySlider() {
 				);
 
 				setChartData(tracks);
+				setOpenModals(Array(tracks.length).fill(false));
 			})
 			.catch((error) => {
 				console.error('Error fetching music chart data:', error);
@@ -72,6 +66,21 @@ function ReplaySlider() {
 		if (sliderRef.current) {
 			sliderRef.current.scrollLeft += 240;
 		}
+	};
+
+	const openModal = (index: number) => {
+		setIsOpen(index);
+	};
+
+	const closeModal = () => {
+		setIsOpen(null);
+	};
+
+	const getModalPosition = (index: number) => {
+		// 여기에서 모달 위치를 동적으로 계산하고 반환하세요.
+		// 예를 들어, 앨범 이미지 위치를 가져와서 모달 위치를 설정할 수 있습니다.
+		// 계산된 위치를 객체로 반환합니다.
+		return initialModalPosition; // 예시로 초기 위치 반환
 	};
 
 	return (
@@ -105,9 +114,19 @@ function ReplaySlider() {
 							onMouseOut={() => setHover(null)}
 						>
 							<img src={track.image} alt={`${track.title} 앨범 이미지`} />
-							<MoreIcon onClick={() => setIsOpen(true)}>
+
+							<MoreIcon onClick={() => openModal(index)}>
 								{hover === index && <RiMore2Line color="#fff" />}
 							</MoreIcon>
+
+							{/* isOpen이 현재 인덱스와 일치하면 모달을 렌더링합니다. */}
+							{isOpen === index && (
+								<ModalBox style={getModalPosition(index)}>
+									<ModalWrap>
+										<Modal open={true} onClose={closeModal} />
+									</ModalWrap>
+								</ModalBox>
+							)}
 						</AlbumImg>
 						<p>{track.title}</p>
 						<p>{track.artist}</p>
@@ -115,17 +134,15 @@ function ReplaySlider() {
 					</ReplayCard>
 				))}
 			</SliderContainer>
-			{isOpen && (
-				<Modal
-					open={isOpen}
-					onClose={() => {
-						closeModal();
-					}}
-				/>
-			)}
 		</Container>
 	);
 }
+
+const initialModalPosition = {
+	top: '0%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
+};
 
 const Container = styled.div`
 	position: relative;
@@ -259,18 +276,14 @@ const AlbumImg = styled.div`
 
 const ModalBox = styled.div`
 	position: absolute;
-
-	top: 10%;
-	left: 20%;
-	z-index: 100;
+	top: 0;
+	left: 10%;
+	z-index: 9999;
 `;
 
 const ModalWrap = styled.div`
 	position: fixed;
-	top: 0;
-	right: 0;
-	text-align: center;
-	margin: 50px auto;
+	z-index: 103;
 `;
 
 const MoreIcon = styled.div`
