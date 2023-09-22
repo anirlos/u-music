@@ -5,7 +5,7 @@ import { SongData } from "../../types";
 import { addToLibrary } from "../../redux/reducers/library-slice";
 import { LibraryRootState } from "../../redux/store/LibraryStore";
 import styled from "styled-components";
-import Modal from "../modals/ModalBox";
+import LibraryModalBox from "../modals/LibraryModalBox";
 
 const Home: FC = () => {
   const dispatch = useDispatch();
@@ -57,14 +57,14 @@ const Home: FC = () => {
         ))}
       </div>
       {showLibraryErrorModal && (
-        <Modal onClose={() => setShowLibraryErrorModal(false)}>
+        <LibraryModalBox onClose={() => setShowLibraryErrorModal(false)}>
           <LibraryErrorMessage>
             이미 보관함에 저장한 노래입니다.
           </LibraryErrorMessage>
           <CloseButton onClick={() => setShowLibraryErrorModal(false)}>
             X
           </CloseButton>
-        </Modal>
+        </LibraryModalBox>
       )}
     </Container>
   );

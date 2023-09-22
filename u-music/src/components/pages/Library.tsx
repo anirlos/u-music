@@ -15,9 +15,7 @@ const Library: FC = () => {
         {/* contents - 보관함에 담긴 data들 list로 */}
         <div className="items">
           {savedSongs.length > 0 ? (
-            savedSongs.map((item, index) => (
-              <LibraryItem key={index} song={item} />
-            ))
+            savedSongs.map((item) => <LibraryItem key={item.id} song={item} />)
           ) : (
             <NoSongMessage>저장된 노래가 없습니다.</NoSongMessage>
           )}
