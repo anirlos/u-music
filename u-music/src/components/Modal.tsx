@@ -34,7 +34,7 @@ const Modal: FC<ModalProps> = ({ open, onClose }) => {
 	return (
 		<ModalBox>
 			<ModalWrap ref={modalRef}>
-				<Contents onClick={handleClose}>
+				<Contents>
 					<li>
 						<a href="#">
 							<p>뮤직 스테이션 시작</p>
