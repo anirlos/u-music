@@ -2,7 +2,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-import Home from './Home';
+import Home from './pages/Home';
 
 const AppContainer = styled.div`
 	display: flex;

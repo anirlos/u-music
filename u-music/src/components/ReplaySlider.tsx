@@ -1,51 +1,60 @@
 import React, { useRef, useState, useEffect } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import styled from 'styled-components';
 import Modal from './Modal';
 import { TfiArrowCircleLeft, TfiArrowCircleRight } from 'react-icons/tfi'; //
 import { RiMore2Line } from 'react-icons/ri';
+import user from '../img/user.jpg';
 
-import axios from 'axios';
+interface Track {
+	id: string;
+	title: string;
+	artist: string;
+	image: string;
+	releaseDate: string;
+}
 
 function ReplaySlider() {
-	const [hover, setHover] = useState(false);
-	const [modalOpen, setModalOpen] = useState(false);
-
-	const modalBackground = useRef();
-
-	// 나머지 코드는 이전과 동일
-
-	const [artistInfo, setArtistInfo] = useState({});
-	const [artistAlbums, setArtistAlbums] = useState([]);
-	const artistName = 'BTS'; // 원하는 가수 이름으로 변경하세요
+	const [hover, setHover] = useState<number | null>(null);
+	const [openModals, setOpenModals] = useState<boolean[]>([]);
+	const [isOpen, setIsOpen] = useState<number | null>(null);
+	const [chartData, setChartData] = useState<Track[]>([]);
 
 	useEffect(() => {
-		// 가수 정보 가져오기
-		axios
-			.get(
-				`https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=${artistName}&api_key=c240344b78f86d48dbb7a77a1f52511e&format=json`
-			)
-			.then((response) => {
-				setArtistInfo(response.data.artist);
-			})
-			.catch((error) => {
-				console.error('Error fetching artist info:', error);
-			});
+		// Spotify API에서 최신 음악 차트 데이터 가져오기
 
-		// 가수 앨범 가져오기
+		const spotifyApiUrl = 'https://api.spotify.com/v1/browse/new-releases';
+
 		axios
-			.get(
-				`https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${artistName}&api_key=c240344b78f86d48dbb7a77a1f52511e&format=json`
-			)
+			.get(spotifyApiUrl, {
+				headers: {
+					Authorization: `Bearer BQAMRYNgHDbmyKGv28AKKJTRPkLS5RAh8atT30zoX7nrHvP5-StVNOrQmzm3-bjQ0AgLu6iH5arIyCGb3OvytbG2sw669mz26UqrGrIpnkKjJuaxZg_PdwLxY7RrU1O5RtnNTBcoeMmvOfWnC8IM_OrSmGq_2rwSPgkujONeEZv18NI8rmh-oQHRQ7AvbfRHzuxtiUpe4D6HNFelutCy07N_6-w_dL8dFcqqHp6HzhHFC0iibndJRIM-2pbQeVH63UWYJuxHH2Bhn5-C`,
+				},
+			})
 			.then((response) => {
-				setArtistAlbums(response.data.topalbums.album);
+				const tracks = response.data.albums.items.map(
+					(album: any, index: number) => {
+						return {
+							id: album.id,
+							title: album.name,
+							artist: album.artists
+								.map((artist: any) => artist.name)
+								.join(', '),
+							image: album.images[0].url,
+							releaseDate: album.release_date.split('-')[0],
+						};
+					}
+				);
+
+				setChartData(tracks);
+				setOpenModals(Array(tracks.length).fill(false));
 			})
 			.catch((error) => {
-				console.error('Error fetching artist albums:', error);
+				console.error('Error fetching music chart data:', error);
 			});
 	}, []);
 
-	const sliderRef = useRef(null);
+	const sliderRef = useRef<HTMLDivElement>(null);
 
 	const scrollLeft = () => {
 		if (sliderRef.current) {
@@ -58,74 +67,83 @@ function ReplaySlider() {
 			sliderRef.current.scrollLeft += 240;
 		}
 	};
+
+	const openModal = (index: number) => {
+		setIsOpen(index);
+	};
+
 	const closeModal = () => {
-		setModalOpen(false);
+		setIsOpen(null);
+	};
+
+	const getModalPosition = (index: number) => {
+		// 여기에서 모달 위치를 동적으로 계산하고 반환하세요.
+		// 예를 들어, 앨범 이미지 위치를 가져와서 모달 위치를 설정할 수 있습니다.
+		// 계산된 위치를 객체로 반환합니다.
+		return initialModalPosition; // 예시로 초기 위치 반환
 	};
 
 	return (
 		<Container>
 			<Title>
 				<Img>
-					<img src="image/user.jpg" />
+					<img src={user} />
 				</Img>
 				<TitleBottom>
 					<Name>
 						<p>김아름</p>
 						<h1>다시듣기</h1>
 					</Name>
+					<ArrowButton>
+						<ScrollButton onClick={scrollLeft}>
+							<TfiArrowCircleLeft color="#fff" />
+						</ScrollButton>
+						<ScrollButton onClick={scrollRight}>
+							<TfiArrowCircleRight color="#fff" />
+						</ScrollButton>
+					</ArrowButton>
 				</TitleBottom>
 			</Title>
-			<ArrowButton>
-				<ScrollButton onClick={scrollLeft}>
-					<TfiArrowCircleLeft color="#fff" />
-				</ScrollButton>
-				<ScrollButton onClick={scrollRight}>
-					<TfiArrowCircleRight color="#fff" />
-				</ScrollButton>
-			</ArrowButton>
+
 			{/* slide */}
 			<SliderContainer ref={sliderRef}>
-				{artistAlbums.map((album, index) => (
-					<ReplayCard key={index.id}>
+				{chartData.map((track, index) => (
+					<ReplayCard key={track.id}>
 						<AlbumImg
-							key={index.id}
-							onMouseOver={() => setHover(index.id)}
+							key={track.id}
+							onMouseOver={() => setHover(index)}
 							onMouseOut={() => setHover(null)}
 						>
-							<img
-								src={album.image[2]['#text']}
-								alt={`${album.name} 앨범 이미지`}
-							/>
-							<MoreIcon onClick={() => setModalOpen(index.id)}>
-								{hover === index.id && <RiMore2Line color="#fff" />}
+							<img src={track.image} alt={`${track.title} 앨범 이미지`} />
+
+							<MoreIcon onClick={() => openModal(index)}>
+								{hover === index && <RiMore2Line color="#fff" />}
 							</MoreIcon>
+
+							{/* isOpen이 현재 인덱스와 일치하면 모달을 렌더링합니다. */}
+							{isOpen === index && (
+								<ModalBox style={getModalPosition(index)}>
+									<ModalWrap>
+										<Modal open={false} onClose={closeModal} />
+									</ModalWrap>
+								</ModalBox>
+							)}
 						</AlbumImg>
-						<p>{album.name}</p>
-						<p>{artistName}</p>
-						{modalOpen === index.id && (
-							<ModalContainer
-								ref={modalBackground}
-								onClick={(e) => {
-									if (e.target === modalBackground.current) {
-										closeModal();
-									}
-								}}
-							>
-								<ModalWrap>
-									<Modal
-										key={index.id}
-										isOpen={modalOpen}
-										onClose={closeModal}
-									/>
-								</ModalWrap>
-							</ModalContainer>
-						)}
+						<p>{track.title}</p>
+						<p>{track.artist}</p>
+						<span>{track.releaseDate}</span>
 					</ReplayCard>
 				))}
 			</SliderContainer>
 		</Container>
 	);
 }
+
+const initialModalPosition = {
+	top: '0%',
+	left: '50%',
+	transform: 'translate(-50%, -50%)',
+};
 
 const Container = styled.div`
 	position: relative;
@@ -210,16 +228,18 @@ const ReplayCard = styled.div`
 		font-size: 14px;
 		color: #fff;
 		margin: 0;
-		&:nth-last-child(1) {
+		&:nth-last-of-type(1) {
 			&:hover {
 				text-decoration: underline;
+			}
+			span {
+				font-size: 14px;
 			}
 		}
 	}
 `;
 
 const AlbumImg = styled.div`
-	position: relative;
 	width: calc((min(calc(100vw - 200px - 240px - 12px), 1440px) - 5 * 24px) / 6);
 
 	img {
@@ -257,36 +277,35 @@ const AlbumImg = styled.div`
 	}
 `;
 
-const MoreIcon = styled.div`
+const ModalBox = styled.div`
 	position: absolute;
-	top: 10%;
-	right: 10%;
-	transform: translate(-50%, -50%);
-	text-align: center;
-`;
-
-const ModalContainer = styled.div`
-	position: absolute;
-	top: 10%;
-	left: 20%;
-	z-index: 100;
+	top: 0;
+	left: 10%;
+	z-index: 99;
 `;
 
 const ModalWrap = styled.div`
 	position: fixed;
-	z-index: 103;
+`;
+
+const MoreIcon = styled.div`
+	position: absolute;
+	top: 5%;
+	right: 5%;
+	z-index: 98;
+	&:hover {
+	}
 `;
 
 const ArrowButton = styled.div`
-	position: absolute;
+	/* position: absolute;
 	z-index: 1;
 	top: 20%;
-	right: ${({ mediaQuery }) =>
-		mediaQuery ? '10%' : '0'}; /* 화면 크기에 따라 right 속성 조정 */
+	right: 0; */
 	display: flex;
 	flex-direction: row;
-	align-items: center;
-	transition: right 0.3s; /* 이동 효과를 부드럽게 하기 위한 트랜지션 설정 */
+	align-items: flex-end;
+	transition: right 0.3s;
 `;
 
 const ScrollButton = styled.button`
