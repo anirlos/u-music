@@ -94,16 +94,17 @@ function ReplaySlider() {
 						<p>김아름</p>
 						<h1>다시듣기</h1>
 					</Name>
+					<ArrowButton>
+						<ScrollButton onClick={scrollLeft}>
+							<TfiArrowCircleLeft color="#fff" />
+						</ScrollButton>
+						<ScrollButton onClick={scrollRight}>
+							<TfiArrowCircleRight color="#fff" />
+						</ScrollButton>
+					</ArrowButton>
 				</TitleBottom>
 			</Title>
-			<ArrowButton>
-				<ScrollButton onClick={scrollLeft}>
-					<TfiArrowCircleLeft color="#fff" />
-				</ScrollButton>
-				<ScrollButton onClick={scrollRight}>
-					<TfiArrowCircleRight color="#fff" />
-				</ScrollButton>
-			</ArrowButton>
+
 			{/* slide */}
 			<SliderContainer ref={sliderRef}>
 				{chartData.map((track, index) => (
@@ -149,7 +150,6 @@ const Container = styled.div`
 	width: 100%;
 	max-width: 1440px;
 	margin: 0 auto;
-	z-index: 10000;
 `;
 
 const Title = styled.div`
@@ -281,7 +281,7 @@ const ModalBox = styled.div`
 	position: absolute;
 	top: 0;
 	left: 10%;
-	z-index: 10000;
+	z-index: 99;
 `;
 
 const ModalWrap = styled.div`
@@ -290,21 +290,21 @@ const ModalWrap = styled.div`
 
 const MoreIcon = styled.div`
 	position: absolute;
-	top: 10%;
-	right: 10%;
-	z-index: 100;
+	top: 5%;
+	right: 5%;
+	z-index: 98;
 	&:hover {
 	}
 `;
 
 const ArrowButton = styled.div`
-	position: absolute;
+	/* position: absolute;
 	z-index: 1;
 	top: 20%;
-	right: 0;
+	right: 0; */
 	display: flex;
 	flex-direction: row;
-	align-items: center;
+	align-items: flex-end;
 	transition: right 0.3s;
 `;
 

@@ -178,6 +178,7 @@ const Title = styled.div`
 	padding: 32px 0 24px 0;
 	gap: 24px;
 	padding-bottom: 0;
+	flex-grow: 1;
 	//
 `;
 // const TitleBottom = styled.div`
@@ -239,6 +240,7 @@ const ArrowButton = styled.div`
 	justify-content: flex-end;
 	align-items: end;
 	margin-left: 10px;
+	flex-grow: 1;
 `;
 
 const ScrollButton = styled.button`

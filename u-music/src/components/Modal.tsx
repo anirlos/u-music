@@ -34,7 +34,7 @@ const Modal: FC<ModalProps> = ({ open, onClose }) => {
 	return (
 		<ModalBox>
 			<ModalWrap ref={modalRef}>
-				<Contents>
+				<Contents onClick={handleClose}>
 					<li>
 						<a href="#">
 							<p>뮤직 스테이션 시작</p>
@@ -87,7 +87,7 @@ const ModalBox = styled.div`
 	position: absolute;
 	top: 0;
 	left: 10%;
-	z-index: 1000; /* 모달의 z-index 값을 10001로 설정 (다른 요소보다 높게) */
+	z-index: 99; /* 모달의 z-index 값을 10001로 설정 (다른 요소보다 높게) */
 `;
 
 const ModalWrap = styled.div`
@@ -103,7 +103,7 @@ const Contents = styled.ul`
 	width: 200px;
 	border-radius: 3%;
 	padding: 20px;
-	z-index: 1001;
+
 	li {
 		list-style: none;
 		opacity: 0.8;
