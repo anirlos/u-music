@@ -1,28 +1,28 @@
-import React from 'react';
+import React from "react";
 
-import styled from 'styled-components';
+import "./App.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Main from "./pages/Main";
 
-import Home from './pages/Home';
+import Login from "./pages/Login";
+import Auth from "./pages/Auth";
 
-const AppContainer = styled.div`
-	display: flex;
-`;
-
-const MainContainer = styled.div`
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	background: #000;
-`;
-
-const App = () => {
-	return (
-		<AppContainer>
-			<MainContainer>
-				<Home />
-			</MainContainer>
-		</AppContainer>
-	);
-};
+function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Main />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "login/auth",
+      element: <Auth />,
+    },
+  ]);
+  return <RouterProvider router={router} />;
+}
 
 export default App;
