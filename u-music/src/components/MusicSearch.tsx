@@ -24,7 +24,7 @@ const MusicSearch: React.FC = () => {
 			`https://api.spotify.com/v1/search?q=${query}&type=track`,
 			{
 				headers: {
-					Authorization: `Bearer BQC0j_7QKJ40hsZppLmaJ9AtfT9GGw3o_VAxuavnpNHtUNs_ZMcNA52yGv1GEWUvCeqjPiu3Imgq3MphSp98RHjFaH-CuAJGbmpY8t-R_zQXf0ayW6nP0Qw346At0ETzI2CsaBz1-U-f9lvcCbdmB9Pacwf3QSDrT5ZCvn60rBmHunlTbIMVcFZB73CjkDeF5PL13x1GrFDKG3f5mciDJgl9rRQMhMon-Emj6JUR1OSnOH7rkmkOL-IpHdaEHvJTS2gQjrEtlOrN5FMS`, // 여기에 Spotify API 토큰을 넣어주세요.
+					Authorization: `Bearer BQDv5Wp4MxNs9K7EtjG9AMTpG3e1fhfX-BQ1or8IxfG8ZfRo2NhJ7EHQOGv02y7bZ4Fqw7HFN6eVwJqIn4prgoB_9jTVyvCdJOZxebC1bUrvd9EY-uBTRSDHQJZ_05mPESn8Dsl2jvugW6jYUko3gUeJMDEPamUQo2IzxHPzX-Ro-mLN7cDSPz3eTdbwGH7-rIK9zblkZpIx-2quAn-j-81d-PQmHzq_Q9GkMONHi3NBaxrmorApqiDxtCqgbguHoa-3O53ILbMiNwSd`, // 여기에 Spotify API 토큰을 넣어주세요.
 				},
 			}
 		);
