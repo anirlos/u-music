@@ -28,7 +28,7 @@ function ReplaySlider() {
 		axios
 			.get(spotifyApiUrl, {
 				headers: {
-					Authorization: `Bearer BQCwy0vApX4BI9z6vNNjpmSQ-0P5-9KcosKkUrwr2IVsgDfgZocrTgjbAQ05Hx4ketwUCSjX8EcErkQXt3h523lCLtQDxmqquDQWefRa3k5hUlkhhjB5x6sUMFcUo_yViiwCD4CxyTu8Cu9KTQ07V0upuMgM_FQJueC-s2TroaAFZYilcsnX2QZnU6uq28jrfUCbYDfAgA-UQi2nZJy6Jqut0rl20SII06rOkPSDMV28RUFvUO6W0senZ1ng4AaEVQzdRgnEm3LA_FFl`,
+					Authorization: `Bearer BQCzcm825ExUXhPzdq5EKBoebXdXGLf-6coQxoYxLxdokjIRvkIxu_yzWDLOjJ-CSaoPmypRD5QykXjgGNij4lssV3j-M3FkdtH0AuPYX_dVwEEJv9QMGAX-qzlMk_UR0TwU-E3BQAR9R57YZmCeC0iSsJK6FRQOkGf8vzO7xHJrxkuvO4sIHrgwguxUHuDd1YaEDIKhjNYhmgQ85jyLW8fiPLaQv74YRkCrrpwtYSjj7srXQ40dCBVgwNgEnQNJsKyTFjewyxB7QpZd`,
 				},
 			})
 			.then((response) => {
@@ -123,7 +123,7 @@ function ReplaySlider() {
 							{isOpen === index && (
 								<ModalBox style={getModalPosition(index)}>
 									<ModalWrap>
-										<Modal open={true} onClose={closeModal} />
+										<Modal open={false} onClose={closeModal} />
 									</ModalWrap>
 								</ModalBox>
 							)}
@@ -149,6 +149,7 @@ const Container = styled.div`
 	width: 100%;
 	max-width: 1440px;
 	margin: 0 auto;
+	z-index: 10000;
 `;
 
 const Title = styled.div`
@@ -231,12 +232,14 @@ const ReplayCard = styled.div`
 			&:hover {
 				text-decoration: underline;
 			}
+			span {
+				font-size: 14px;
+			}
 		}
 	}
 `;
 
 const AlbumImg = styled.div`
-	position: relative;
 	width: calc((min(calc(100vw - 200px - 240px - 12px), 1440px) - 5 * 24px) / 6);
 
 	img {
@@ -278,12 +281,11 @@ const ModalBox = styled.div`
 	position: absolute;
 	top: 0;
 	left: 10%;
-	z-index: 9999;
+	z-index: 10000;
 `;
 
 const ModalWrap = styled.div`
 	position: fixed;
-	z-index: 103;
 `;
 
 const MoreIcon = styled.div`

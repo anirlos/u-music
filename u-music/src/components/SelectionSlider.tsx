@@ -15,20 +15,21 @@ interface Track {
 	releaseDate: string;
 }
 
+const ROWS = 4;
+const COLUMNS = 3;
+const MAX_ITEMS = 16;
+
 function SelectionSlide() {
 	const [currentSlide, setCurrentSlide] = useState<number>(0);
 	const [hover, setHover] = useState<number | null>(null);
 	const slideRef = useRef<HTMLDivElement>(null);
-
-	const ROWS = 4;
-	const COLUMNS = 3;
 
 	const [chartData, setChartData] = useState<Track[]>([]);
 
 	// 오른쪽으로 슬라이드 이동
 	const scrollRight = () => {
 		setCurrentSlide((prevSlide) => {
-			if (prevSlide === getTotalSlides()) {
+			if (prevSlide === getTotalSlides() - 1) {
 				return 0;
 			} else {
 				return prevSlide + 1;
@@ -40,7 +41,7 @@ function SelectionSlide() {
 	const scrollLeft = () => {
 		setCurrentSlide((prevSlide) => {
 			if (prevSlide === 0) {
-				return getTotalSlides();
+				return getTotalSlides() - 1;
 			} else {
 				return prevSlide - 1;
 			}
@@ -49,14 +50,20 @@ function SelectionSlide() {
 
 	// 전체 슬라이드 수 계산
 	const getTotalSlides = () => {
-		return Math.ceil(chartData.length / (ROWS * COLUMNS)) - 1;
+		return Math.ceil(chartData.length / (ROWS * COLUMNS));
+	};
+
+	const getVisibleItems = () => {
+		const start = currentSlide * (ROWS * COLUMNS);
+		const end = start + ROWS * COLUMNS;
+		return chartData.slice(start, end);
 	};
 
 	useEffect(() => {
 		// 슬라이드 이동 애니메이션 적용
 		if (slideRef.current) {
 			slideRef.current.style.transition = 'all 0.5s ease-in-out';
-			slideRef.current.style.transform = `translateX(-${currentSlide * 32}%)`;
+			slideRef.current.style.transform = `translateX(-${currentSlide * 100}%)`;
 		}
 	}, [currentSlide]);
 
@@ -64,7 +71,7 @@ function SelectionSlide() {
 		// 슬라이드 이동 애니메이션 적용
 		if (slideRef.current) {
 			slideRef.current.style.transition = 'all 0.5s ease-in-out';
-			slideRef.current.style.transform = `translateX(-${currentSlide * 100}%)`;
+			slideRef.current.style.transform = `translateX(-${currentSlide * 0}%)`;
 		}
 	}, [currentSlide]);
 
@@ -76,7 +83,7 @@ function SelectionSlide() {
 					'https://api.spotify.com/v1/browse/new-releases',
 					{
 						headers: {
-							Authorization: `Bearer BQD4fR-2-eLlLcUPz_mmlb_774HgDtyQcecRr7rKSwb2HdAUi8cYSAZIRx1BWvhJ8PIqyxEAg-B-A_BcU7dAs-Lu3OFV5oJjPpZatdJ8ZMO-ml1E99x0w7omPlyNOzElEolcLPt377Ias85wxM7hcomh3i8wFk4yVrSvLX5T-tEnk53a_4kwPOtv9phRmO1aF_oFFEJNwOkmp_DI8nleYta2QOPi2h7g2kANlMCyGvZpwGKmijHq09dQ-6EzcMCAsD_QZTh9o01_jRlg`,
+							Authorization: `Bearer BQCzcm825ExUXhPzdq5EKBoebXdXGLf-6coQxoYxLxdokjIRvkIxu_yzWDLOjJ-CSaoPmypRD5QykXjgGNij4lssV3j-M3FkdtH0AuPYX_dVwEEJv9QMGAX-qzlMk_UR0TwU-E3BQAR9R57YZmCeC0iSsJK6FRQOkGf8vzO7xHJrxkuvO4sIHrgwguxUHuDd1YaEDIKhjNYhmgQ85jyLW8fiPLaQv74YRkCrrpwtYSjj7srXQ40dCBVgwNgEnQNJsKyTFjewyxB7QpZd`,
 						},
 					}
 				);
@@ -89,7 +96,7 @@ function SelectionSlide() {
 						releaseDate: album.release_date.split('-')[0],
 					})
 				);
-				setChartData(tracks);
+				setChartData(tracks.slice(0, MAX_ITEMS));
 			} catch (error) {
 				console.error('Error fetching music chart data:', error);
 			}
@@ -120,7 +127,7 @@ function SelectionSlide() {
 				</Button>
 			</Title>
 			<SliderContainer ref={slideRef}>
-				{chartData.map((track, index) => (
+				{getVisibleItems().map((track, index) => (
 					<SongList key={track.id}>
 						<ListContents
 							key={track.id}
@@ -171,12 +178,13 @@ const Title = styled.div`
 	padding: 32px 0 24px 0;
 	gap: 24px;
 	padding-bottom: 0;
+	//
 `;
-const TitleBottom = styled.div`
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-`;
+// const TitleBottom = styled.div`
+// 	width: 100%;
+// 	display: flex;
+// 	justify-content: space-between;
+// `;
 
 const Name = styled.div`
 	padding: 0;
@@ -244,7 +252,7 @@ const ScrollButton = styled.button`
 	}
 `;
 const SongList = styled.div`
-	width: 32%; // 4열로 나누기, 8px은 간격 고려
+	width: calc(25% - 16px); /* 4열로 나누기, 16px은 간격 고려 */
 	padding: 0;
 	margin: 0;
 `;
@@ -277,9 +285,13 @@ const SongTitle = styled.div`
 	line-height: 1.3;
 	font-weight: 500;
 	color: #fff;
+
 	p {
 		padding: 0;
 		margin: 0;
+		/* overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap; */
 	}
 `;
 
@@ -302,7 +314,7 @@ const LikeHover = styled.div`
 	justify-content: space-between;
 	position: absolute;
 	top: 50%;
-	right: 0%;
+	right: 0;
 	transform: translate(-50%, -50%);
 	text-align: center;
 
