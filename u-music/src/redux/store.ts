@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
-import libraryReducer from "../reducers/library-slice";
-import playlistReducer from "../reducers/playlist-slice";
+import libraryReducer from "./reducers/library-slice";
+import playlistReducer from "./reducers/playlist-slice";
 
 export type LibraryRootState = ReturnType<typeof store.getState>;
 
