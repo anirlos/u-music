@@ -15,7 +15,7 @@ import useOutSideClick from "../hooks/useOutSideClick";
 interface ModalProps {
   open: boolean;
   onClose: () => void;
-  trackData: SongData | null; // 예린 추가+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=
+  trackData: SongData | null; 
 }
 
 const Modal: FC<ModalProps> = ({ open, onClose, trackData }) => {
@@ -40,7 +40,6 @@ const Modal: FC<ModalProps> = ({ open, onClose, trackData }) => {
     }
   }, [open]);
 
-  // 예린 추가 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const dispatch = useDispatch();
 
   const [showLibraryErrorModal, setShowLibraryErrorModal] = useState(false);
@@ -77,7 +76,6 @@ const Modal: FC<ModalProps> = ({ open, onClose, trackData }) => {
               <p>현재 재생목록에 추가</p>
             </a>
           </li>
-          {/* 예린  추가++++++++++++++++++++++++++++++++++++++++++++++++++++++= */}
           <li
             onClick={() => {
               if (trackData) {
@@ -116,7 +114,6 @@ const Modal: FC<ModalProps> = ({ open, onClose, trackData }) => {
           </li>
         </Contents>
       </ModalWrap>
-      {/* 예린 추가+++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
       {showLibraryErrorModal && (
         <LibraryModalBox
           onClose={() => {

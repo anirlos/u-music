@@ -21,7 +21,7 @@ function ReplaySlider() {
   const [isOpen, setIsOpen] = useState<number | null>(null);
   const [chartData, setChartData] = useState<Track[]>([]);
 
-  const [modalData, setModalData] = useState<SongData | null>(null); // 예린 추가 내용+++++++++++++++++++++++++++++++++++++++++++++++
+  const [modalData, setModalData] = useState<SongData | null>(null); 
 
   useEffect(() => {
     // Spotify API에서 최신 음악 차트 데이터 가져오기
@@ -122,7 +122,7 @@ function ReplaySlider() {
               <MoreIcon
                 onClick={() => {
                   openModal(index);
-                  setModalData(track); // 예린 추가 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                  setModalData(track); 
                 }}
               >
                 {hover === index && <RiMore2Line color="#fff" />}
@@ -135,7 +135,7 @@ function ReplaySlider() {
                     <Modal
                       open={false}
                       onClose={closeModal}
-                      trackData={modalData} // 예린 추가 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                      trackData={modalData} 
                     />
                   </ModalWrap>
                 </ModalBox>
@@ -235,100 +235,100 @@ const SliderContainer = styled.div`
 `;
 
 const ReplayCard = styled.div`
-  position: relative;
-  p {
-    font-size: 14px;
-    color: #fff;
-    margin: 0;
-    &:nth-last-of-type(1) {
-      &:hover {
-        text-decoration: underline;
-      }
-      span {
-        font-size: 14px;
-      }
-    }
-  }
+	position: relative;
+	p {
+		font-size: 14px;
+		color: #fff;
+		margin: 0;
+		&:nth-last-of-type(1) {
+			&:hover {
+				text-decoration: underline;
+			}
+			span {
+				font-size: 14px;
+			}
+		}
+	}
 `;
 
 const AlbumImg = styled.div`
-  width: calc((min(calc(100vw - 200px - 240px - 12px), 1440px) - 5 * 24px) / 6);
+	width: calc((min(calc(100vw - 200px - 240px - 12px), 1440px) - 5 * 24px) / 6);
 
-  img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 5px;
-    border-radius: 2%;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
+	img {
+		max-width: 100%;
+		height: auto;
+		margin-bottom: 5px;
+		border-radius: 2%;
+		transition: transform 0.3s, box-shadow 0.3s;
+	}
 
-  &:hover img {
-    opacity: 0.5;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-  }
-  @media (max-width: 1440px) {
-    width: 180px;
-    img {
-      max-width: 100%;
-      height: auto;
-      margin-bottom: 5px;
-      border-radius: 2%;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
+	&:hover img {
+		opacity: 0.5;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+	}
+	@media (max-width: 1440px) {
+		width: 180px;
+		img {
+			max-width: 100%;
+			height: auto;
+			margin-bottom: 5px;
+			border-radius: 2%;
+			transition: transform 0.3s, box-shadow 0.3s;
+		}
 
-    &:hover img {
-      opacity: 0.5;
-      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-    }
-  }
-  @media (max-width: 1024px) {
-    width: 200px;
-  }
-  @media (max-width: 768px) {
-    width: 240px;
-  }
+		&:hover img {
+			opacity: 0.5;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+		}
+	}
+	@media (max-width: 1024px) {
+		width: 200px;
+	}
+	@media (max-width: 768px) {
+		width: 240px;
+	}
 `;
 
 const ModalBox = styled.div`
-  position: absolute;
-  top: 0;
-  left: 10%;
-  z-index: 99;
+	position: absolute;
+	top: 0;
+	left: 10%;
+	z-index: 99;
 `;
 
 const ModalWrap = styled.div`
-  position: fixed;
+	position: fixed;
 `;
 
 const MoreIcon = styled.div`
-  position: absolute;
-  top: 5%;
-  right: 5%;
-  z-index: 98;
-  &:hover {
-  }
+	position: absolute;
+	top: 5%;
+	right: 5%;
+	z-index: 98;
+	&:hover {
+	}
 `;
 
 const ArrowButton = styled.div`
-  position: absolute;
-  /* z-index: 1;
-  top: 20%;
-  right: 0; */
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  transition: right 0.3s;
+	/* position: absolute;
+	z-index: 1;
+	top: 20%;
+	right: 0; */
+	display: flex;
+	flex-direction: row;
+	align-items: flex-end;
+	transition: right 0.3s;
 `;
 
 const ScrollButton = styled.button`
-  background: none;
-  border: none;
-  opacity: 0.5;
-  font-size: 24px;
-  color: #333;
-  &:hover {
-    opacity: 1;
-  }
+	background: none;
+	border: none;
+	opacity: 0.5;
+	font-size: 24px;
+	color: #333;
+	&:hover {
+		opacity: 1;
+	}
 `;
 
 export default ReplaySlider;
