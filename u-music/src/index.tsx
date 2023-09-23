@@ -1,22 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// index.tsx
+
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
 import { Provider } from 'react-redux';
-import store from './redux/store'; // Redux 스토어 파일의 경로를 정확하게 지정
-
-import App from './App';
-import NewPlaylistPage from './pages/NewPlaylistPage'; // 파일 이름 대소문자 일치
-
-import './styles/Styles.css';
+import store from './redux/store'; 
+import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
-  <Provider store={store}>
-    <Router> 
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="/New-playlist" element={<NewPlaylistPage />} /> 
-      </Routes>
-    </Router>
-  </Provider>,
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
   document.getElementById('root')
 );

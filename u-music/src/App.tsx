@@ -1,25 +1,39 @@
 import React, { useState } from "react";
+
 import "./App.css";
-import NewplaylistModal from "./components/NewplaylistModal";
-import Newplaylistbtn from "./components/Newplaylistbtn";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Main from "./pages/Main";
+
+import Login from "./pages/Login";
+import Auth from "./pages/Auth";
 
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Main />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "login/auth",
+      element: <Auth />,
+    },
+  ]);
+  
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleOpenModal = () => {
     setModalOpen(true);
   };
-
+  
   const handleCloseModal = () => {
     setModalOpen(false);
   };
 
-  return (
-    <div>
-      <Newplaylistbtn label="+ 새 재생목록" onClick={handleOpenModal} />
-      <NewplaylistModal isOpen={isModalOpen} onClose={handleCloseModal}  />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
