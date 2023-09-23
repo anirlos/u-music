@@ -1,5 +1,12 @@
-import React from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React, { useState } from "react";
+import "./App.css";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 import Header from "./components/Header";
 import Navigation from "./components/Navigation";
 import Home from "./components/Home";
@@ -8,6 +15,15 @@ import Dashboard from "./components/Dashboard";
 import SearchScreen from "./components/SearchScreen";
 
 function App() {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
   return (
     <Router>
       <div className="app">
