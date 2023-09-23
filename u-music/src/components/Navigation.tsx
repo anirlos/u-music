@@ -9,7 +9,7 @@ function Navigation() {
   const location = useLocation();
   const [selectedItem, setSelectedItem] = useState("home");
 
-  const handleItemClick = (itemName) => {
+  const handleItemClick = (itemName: string) => {
     setSelectedItem(itemName);
   };
 
@@ -23,7 +23,7 @@ function Navigation() {
     }
   }, [location.pathname]);
 
-  const getMenuItemStyle = (menuItem) => {
+  const getMenuItemStyle = (menuItem: string) => {
     return {
       color: selectedItem === menuItem ? "#fff" : "#000",
       backgroundColor: selectedItem === menuItem ? "#302e2e" : "transparent",

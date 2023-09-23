@@ -34,7 +34,7 @@ import SearchBar from "./SearchBar";
 // }
 
 function SearchScreen() {
-  const handleSearch = (searchTerm) => {
+  const handleSearch = (searchTerm: string) => {
     console.log(`검색어: ${searchTerm}`);
   };
 
@@ -48,5 +48,4 @@ function SearchScreen() {
     </div>
   );
 }
-
 export default SearchScreen;

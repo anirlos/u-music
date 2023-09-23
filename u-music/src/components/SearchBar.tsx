@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import "./SearchBar.css";
 import search from "./assets/search.svg";
 
-function SearchBar({ onSearch }) {
+function SearchBar({ onSearch }: { onSearch: (searchTerm: string) => void }) {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleSearchInput = (e) => {
+  const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
   };
 
@@ -33,5 +33,4 @@ function SearchBar({ onSearch }) {
     </div>
   );
 }
-
 export default SearchBar;

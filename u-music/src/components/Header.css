@@ -13,7 +13,20 @@ body {
   color: #fff;
   border-bottom: 1px solid #717171;
 }
+.header img {
+  max-height: 40px;
+  cursor: pointer;
+}
+.header img.white-logo {
+  margin-right: 15px;
+}
 
+.centered-search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
 .menu {
   width: 70px;
   font-weight: bold;
@@ -52,6 +65,10 @@ body {
   margin-left: 5px;
 }
 
+.login {
+  display: flex;
+  align-items: center;
+}
 .login-status {
   font-size: 15px;
   margin-left: 400px;
