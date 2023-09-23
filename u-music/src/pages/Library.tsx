@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { LibraryRootState } from "../redux/store/LibraryStore";
+import { LibraryRootState } from "../redux/store/store";
 import LibraryItem from "../components/LibraryItem";
 
 const Library: FC = () => {

@@ -6,7 +6,7 @@ import {
   addToLibrary,
   resetDuplicateState,
 } from "../redux/reducers/library-slice";
-import { LibraryRootState } from "../redux/store/LibraryStore";
+import { LibraryRootState } from "../redux/store/store";
 import LibraryModalBox from "./modals/LibraryModalBox";
 
 import useOutSideClick from "../hooks/useOutSideClick";
