@@ -22,13 +22,13 @@ function App() {
       element: <Auth />,
     },
   ]);
-  
+
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleOpenModal = () => {
     setModalOpen(true);
   };
-  
+
   const handleCloseModal = () => {
     setModalOpen(false);
   };
