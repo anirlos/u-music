@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -22,6 +22,17 @@ function App() {
       element: <Auth />,
     },
   ]);
+  
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+  
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
   return <RouterProvider router={router} />;
 }
 
