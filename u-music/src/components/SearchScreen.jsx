@@ -5,7 +5,7 @@ import SearchBar from "./SearchBar";
 //   // 검색어 상태를 관리하기 위한 useState 훅을 사용
 //   const [searchTerm, setSearchTerm] = useState("");
 
-//   // 검색어 입력 핸들러
+//   // 검색어핸들러
 //   const handleSearchInput = (e) => {
 //     setSearchTerm(e.target.value);
 //   };
