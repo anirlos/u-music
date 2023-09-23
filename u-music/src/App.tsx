@@ -1,34 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
+
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import styled from "styled-components";
-import Library from "./pages/Library";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Main from "./pages/Main";
+
+import Login from "./pages/Login";
+import Auth from "./pages/Auth";
 
 function App() {
-  return (
-    <AppContainer>
-      <Router>
-        <MainContainer>
-          <Routes>
-            {/* 담당 부분 보관함인 Library */}
-            <Route path="/library" element={<Library />}></Route>
-          </Routes>
-        </MainContainer>
-      </Router>
-    </AppContainer>
-  );
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Main />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "login/auth",
+      element: <Auth />,
+    },
+  ]);
+
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  return <RouterProvider router={router} />;
 }
-
-const AppContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: calc(100vw - (100vw - 100%));
-  /* width: calc(100vw - (100vw - 100%)); */
-`;
-
-const MainContainer = styled.div`
-  display: flex;
-  background: #000;
-`;
 
 export default App;
