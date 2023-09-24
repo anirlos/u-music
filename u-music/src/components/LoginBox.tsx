@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 
 interface LoginBoxProps {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 const LoginBox: React.FC<LoginBoxProps> = ({ children }) => {
