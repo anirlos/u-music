@@ -83,7 +83,7 @@ function SelectionSlide() {
 					'https://api.spotify.com/v1/browse/new-releases',
 					{
 						headers: {
-							Authorization: `Bearer BQBZsSAL395_dX4dL0Og5JIZTW0j1ShGnFF6CLmWdQMpCDqgXBZLOjFiOc1lrVrK9Gdx0csU6_oQw3L6HmZfhKqzHr9FzbGbLe0goLVL8yKe_Hnczuf4YJ_nWIrVU-YwYww4JqmZ6suK5Iy-ChHgAXH8eQJ2W86WK1trgq0FUhLK0LQerW6bK_lqYthmCfohXelk5XgOqa0rCbXEa15H5IqMYhGrB5qug4z7y472czaWKBy2GwLiz4TUoHwdfTlrGoyFrE7rY7GPKUAl`,
+							Authorization: `Bearer BQAvPjUqyF0mJMRbCsRK2XAzDpr0W-6ep5g7CgvBUcldnwEU4dkwaTcgplUyIXiVGkqGIR58e-92QrYrFYbY9R4epCBFLKKBT7LlqFYTtOSLeFkb_j3uYsBQWy6G-WWl9yQt0CckMsZk31xoWedC9fkJRjj-t4SlRPA1UcoTpMsaOj8ok1f9d7Ki5KynLsNDSknyAcyIStVh4B544_qu6e4VFjnHCklmMXco4BUU1EFX2eMsWbF7Y0LqD3ZfElNl4emIi6rhNEM8wCUz`,
 						},
 					}
 				);
@@ -202,6 +202,13 @@ const Name = styled.div`
 		white-space: normal;
 		line-height: 1.3;
 		margin: 0;
+		@media screen and (max-width: 768px) {
+			font-size: 30px;
+			font-weight: 700;
+			white-space: normal;
+			line-height: 1.3;
+			margin: 0;
+		}
 	}
 `;
 const SliderContainer = styled.div`
@@ -211,6 +218,9 @@ const SliderContainer = styled.div`
 	overflow-x: hidden;
 	margin: 16px 0 24px;
 	gap: 5%;
+	@media screen and (max-width: 768px) {
+		flex-direction: column;
+	}
 `;
 
 const Button = styled.div`
@@ -234,6 +244,9 @@ const PlayButton = styled.button`
 		font-size: 14px;
 		line-height: 36px;
 		color: #fff;
+	}
+	@media screen and (max-width: 768px) {
+		display: none;
 	}
 `;
 
@@ -259,6 +272,13 @@ const SongList = styled.div`
 	width: calc(25% - 16px); /* 4열로 나누기, 16px은 간격 고려 */
 	padding: 0;
 	margin: 0;
+	@media screen and (max-width: 1440px) {
+	}
+	@media screen and (max-width: 1024px) {
+	}
+	@media screen and (max-width: 768px) {
+		width: 100%;
+	}
 `;
 
 const ListContents = styled.div`
@@ -269,6 +289,9 @@ const ListContents = styled.div`
 	justify-content: flex-start;
 	margin-bottom: 5%;
 	font-size: 12px;
+	@media screen and (max-width: 768px) {
+		justify-content: space-between;
+	}
 	&:hover {
 		opacity: 0.5;
 	}
@@ -277,7 +300,9 @@ const ListContents = styled.div`
 const ArtWork = styled.div`
 	width: 10%;
 	margin-right: 10px;
-
+	@media screen and (max-width: 768px) {
+		display: none;
+	}
 	img {
 		max-width: 100%;
 		height: auto;
@@ -293,10 +318,19 @@ const SongTitle = styled.div`
 	line-height: 1.3;
 	font-weight: 500;
 	color: #fff;
-
+	@media screen and (max-width: 768px) {
+		flex-direction: row;
+	}
 	p {
+		width: 100%;
 		padding: 0;
 		margin: 0;
+		@media screen and (max-width: 768px) {
+			flex-direction: row;
+			width: 215px;
+			display: flex;
+			justify-content: flex-start;
+		}
 	}
 `;
 

@@ -13,6 +13,7 @@ import Home from './components/Home';
 import Explore from './components/Explore';
 import Dashboard from './components/Dashboard';
 import SearchScreen from './components/SearchScreen';
+import styled from 'styled-components';
 
 function App() {
 	const [isModalOpen, setModalOpen] = useState(false);
@@ -34,11 +35,8 @@ function App() {
 						<Route path="/explore" element={<Explore />} />
 						<Route path="/dashboard" element={<Dashboard />} />
 						<Route path="/search" element={<SearchScreen />} />
-						{/* 홈 페이지 */}
+						<Route path="/" element={<Home />} /> {/* 홈 페이지 */}{' '}
 					</Routes>
-				</div>
-				<div className="home">
-					<Home />
 				</div>
 			</div>
 		</Router>

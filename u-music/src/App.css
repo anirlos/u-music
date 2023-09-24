@@ -1,10 +1,10 @@
 * {
 	font-family: 'Roboto Mono';
+	color: #fff;
 }
 
 .App {
 	text-align: center;
-	position: relative;
 }
 
 .App-logo {
@@ -27,30 +27,6 @@
 	justify-content: center;
 	font-size: calc(10px + 2vmin);
 	color: white;
-}
-
-.home {
-	color: #fff;
-	width: 65vw;
-	max-width: 100%;
-	margin: 0 auto;
-}
-
-@media screen and (max-width: 1440px) {
-	.home {
-		width: 60vw;
-	}
-}
-@media screen and (max-width: 1024px) {
-	.home {
-		width: 50vw;
-	}
-}
-
-@media screen and (max-width: 768px) {
-	.home {
-		width: 30vw;
-	}
 }
 
 .App-link {

@@ -31,7 +31,7 @@ function ReplaySlider() {
 		axios
 			.get(spotifyApiUrl, {
 				headers: {
-					Authorization: `Bearer BQBZsSAL395_dX4dL0Og5JIZTW0j1ShGnFF6CLmWdQMpCDqgXBZLOjFiOc1lrVrK9Gdx0csU6_oQw3L6HmZfhKqzHr9FzbGbLe0goLVL8yKe_Hnczuf4YJ_nWIrVU-YwYww4JqmZ6suK5Iy-ChHgAXH8eQJ2W86WK1trgq0FUhLK0LQerW6bK_lqYthmCfohXelk5XgOqa0rCbXEa15H5IqMYhGrB5qug4z7y472czaWKBy2GwLiz4TUoHwdfTlrGoyFrE7rY7GPKUAl`,
+					Authorization: `Bearer BQAvPjUqyF0mJMRbCsRK2XAzDpr0W-6ep5g7CgvBUcldnwEU4dkwaTcgplUyIXiVGkqGIR58e-92QrYrFYbY9R4epCBFLKKBT7LlqFYTtOSLeFkb_j3uYsBQWy6G-WWl9yQt0CckMsZk31xoWedC9fkJRjj-t4SlRPA1UcoTpMsaOj8ok1f9d7Ki5KynLsNDSknyAcyIStVh4B544_qu6e4VFjnHCklmMXco4BUU1EFX2eMsWbF7Y0LqD3ZfElNl4emIi6rhNEM8wCUz`,
 				},
 			})
 			.then((response) => {
@@ -210,6 +210,14 @@ const Name = styled.div`
 		white-space: normal;
 		line-height: 1.3;
 		margin: 0;
+
+		@media screen and (max-width: 768px) {
+			font-size: 30px;
+			font-weight: 700;
+			white-space: normal;
+			line-height: 1.3;
+			margin: 0;
+		}
 	}
 `;
 
@@ -304,9 +312,13 @@ const MoreIcon = styled.div`
 	position: absolute;
 	top: 5%;
 	right: 5%;
-	z-index: 98;
-	&:hover {
-	}
+
+	width: 15%;
+	height: 15%;
+	/* &:hover {
+		opacity: 0.5;
+		border-radius: 50%;
+	} */
 `;
 
 const ArrowButton = styled.div`
