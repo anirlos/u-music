@@ -13,6 +13,7 @@ body {
   color: #fff;
   border-bottom: 1px solid #717171;
 }
+<<<<<<< Updated upstream
 .header img {
   max-height: 40px;
   cursor: pointer;
@@ -27,6 +28,9 @@ body {
   align-items: center;
   flex-grow: 1;
 }
+=======
+
+>>>>>>> Stashed changes
 .menu {
   width: 70px;
   font-weight: bold;
@@ -65,10 +69,13 @@ body {
   margin-left: 5px;
 }
 
+<<<<<<< Updated upstream
 .login {
   display: flex;
   align-items: center;
 }
+=======
+>>>>>>> Stashed changes
 .login-status {
   font-size: 15px;
   margin-left: 400px;
