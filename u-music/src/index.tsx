@@ -18,5 +18,8 @@ ReactDOM.render(
 );
 
 reportWebVitals();
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
