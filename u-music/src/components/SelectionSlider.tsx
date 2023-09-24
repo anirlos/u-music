@@ -83,7 +83,7 @@ function SelectionSlide() {
 					'https://api.spotify.com/v1/browse/new-releases',
 					{
 						headers: {
-							Authorization: `Bearer BQAvPjUqyF0mJMRbCsRK2XAzDpr0W-6ep5g7CgvBUcldnwEU4dkwaTcgplUyIXiVGkqGIR58e-92QrYrFYbY9R4epCBFLKKBT7LlqFYTtOSLeFkb_j3uYsBQWy6G-WWl9yQt0CckMsZk31xoWedC9fkJRjj-t4SlRPA1UcoTpMsaOj8ok1f9d7Ki5KynLsNDSknyAcyIStVh4B544_qu6e4VFjnHCklmMXco4BUU1EFX2eMsWbF7Y0LqD3ZfElNl4emIi6rhNEM8wCUz`,
+							Authorization: `Bearer BQCXpHddpGfBk68_QbxcIEBpLsbHXyUN36D2PmgNVXMvQ0FzuTWooAlF-mNzYEPmzAeoXBdi4Nc0-KeoxrKQqQK_AaAHV8Vhsp4SC5BKeBHNzvady5zEm4gYOSg_oHzJq8BFTAEk4n1LAvqi9XuaCMVVLCqwBpf_SuPQ_CwkoTBnyWAdbcDI3u9WdjDGNAaYiOtjB5tpOfHNTGyeLYvrr0VJRD5vcuFCdopilAEAZXYLSId3LXu5zVkHdNPY2e5D3T0tunMCm2c4pfgJ`,
 						},
 					}
 				);
