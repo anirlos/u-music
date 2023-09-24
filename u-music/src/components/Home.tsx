@@ -1,7 +1,14 @@
-import React from "react";
+import React from 'react';
+import ReplaySlider from '../components/ReplaySlider';
+import SelectionSlide from '../components/SelectionSlider';
 
-function Home() {
-  return <div></div>;
-}
+const Home = () => {
+	return (
+		<>
+			<ReplaySlider />
+			<SelectionSlide />
+		</>
+	);
+};
 
 export default Home;

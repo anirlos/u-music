@@ -83,7 +83,7 @@ function SelectionSlide() {
 					'https://api.spotify.com/v1/browse/new-releases',
 					{
 						headers: {
-							Authorization: `Bearer BQDv5Wp4MxNs9K7EtjG9AMTpG3e1fhfX-BQ1or8IxfG8ZfRo2NhJ7EHQOGv02y7bZ4Fqw7HFN6eVwJqIn4prgoB_9jTVyvCdJOZxebC1bUrvd9EY-uBTRSDHQJZ_05mPESn8Dsl2jvugW6jYUko3gUeJMDEPamUQo2IzxHPzX-Ro-mLN7cDSPz3eTdbwGH7-rIK9zblkZpIx-2quAn-j-81d-PQmHzq_Q9GkMONHi3NBaxrmorApqiDxtCqgbguHoa-3O53ILbMiNwSd`,
+							Authorization: `Bearer BQBZsSAL395_dX4dL0Og5JIZTW0j1ShGnFF6CLmWdQMpCDqgXBZLOjFiOc1lrVrK9Gdx0csU6_oQw3L6HmZfhKqzHr9FzbGbLe0goLVL8yKe_Hnczuf4YJ_nWIrVU-YwYww4JqmZ6suK5Iy-ChHgAXH8eQJ2W86WK1trgq0FUhLK0LQerW6bK_lqYthmCfohXelk5XgOqa0rCbXEa15H5IqMYhGrB5qug4z7y472czaWKBy2GwLiz4TUoHwdfTlrGoyFrE7rY7GPKUAl`,
 						},
 					}
 				);
@@ -136,14 +136,14 @@ function SelectionSlide() {
 						>
 							{hover === index && (
 								<ContentsHover>
-									<HiPlay />
+									<HiPlay color="#fff" />
 								</ContentsHover>
 							)}
 							{hover === index && (
 								<LikeHover>
-									<BiLike />
-									<BiDislike />
-									<CgMoreVerticalAlt />
+									<BiLike color="#fff" />
+									<BiDislike color="#fff" />
+									<CgMoreVerticalAlt color="#fff" />
 								</LikeHover>
 							)}
 							<ArtWork>
@@ -162,8 +162,10 @@ function SelectionSlide() {
 }
 
 const Container = styled.div`
-	width: 100%;
-	max-width: 1440px;
+	position: relative;
+	max-width: 100%;
+	width: 80vw;
+	height: 30vw;
 	margin: 0 auto;
 
 	/* background-color: gray; */
@@ -173,10 +175,10 @@ const Title = styled.div`
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: flex-end;
-	max-width: 1440px;
+
 	margin: 0 auto;
 	padding: 32px 0 24px 0;
-	gap: 24px;
+	/* gap: 24px; */
 	padding-bottom: 0;
 	flex-grow: 1;
 	//
@@ -208,7 +210,7 @@ const SliderContainer = styled.div`
 	justify-content: space-between;
 	overflow-x: hidden;
 	margin: 16px 0 24px;
-	gap: 24px;
+	gap: 5%;
 `;
 
 const Button = styled.div`
@@ -263,9 +265,10 @@ const ListContents = styled.div`
 	position: relative;
 	width: 100%;
 	display: flex;
-	flex-wrap: wrap;
+
 	justify-content: flex-start;
-	font-size: 16px;
+	margin-bottom: 5%;
+	font-size: 12px;
 	&:hover {
 		opacity: 0.5;
 	}
@@ -286,7 +289,7 @@ const SongTitle = styled.div`
 	display: flex;
 	flex-direction: column;
 	font-family: Roboto, Noto Naskh Arabic UI, Arial, sans-serif;
-	font-size: 15px;
+	font-size: 12px;
 	line-height: 1.3;
 	font-weight: 500;
 	color: #fff;

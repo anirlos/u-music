@@ -1,44 +1,67 @@
+* {
+	font-family: 'Roboto Mono';
+}
 
-  * {
-    font-family: "Roboto Mono";
-  }
+.App {
+	text-align: center;
+	position: relative;
+}
 
-  .App {
-    text-align: center;
-  }
+.App-logo {
+	height: 40vmin;
+	pointer-events: none;
+}
 
-  .App-logo {
-    height: 40vmin;
-    pointer-events: none;
-  }
+@media (prefers-reduced-motion: no-preference) {
+	.App-logo {
+		animation: App-logo-spin infinite 20s linear;
+	}
+}
 
-  @media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-      animation: App-logo-spin infinite 20s linear;
-    }
-  }
+.App-header {
+	background-color: #282c34;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	color: white;
+}
 
-  .App-header {
-    background-color: #282c34;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  }
+.home {
+	color: #fff;
+	width: 65vw;
+	max-width: 100%;
+	margin: 0 auto;
+}
 
-  .App-link {
-    color: #61dafb;
-  }
+@media screen and (max-width: 1440px) {
+	.home {
+		width: 60vw;
+	}
+}
+@media screen and (max-width: 1024px) {
+	.home {
+		width: 50vw;
+	}
+}
 
-  @keyframes App-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
+@media screen and (max-width: 768px) {
+	.home {
+		width: 30vw;
+	}
+}
 
+.App-link {
+	color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
