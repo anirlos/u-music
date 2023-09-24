@@ -31,7 +31,7 @@ function ReplaySlider() {
 		axios
 			.get(spotifyApiUrl, {
 				headers: {
-					Authorization: `Bearer BQCXpHddpGfBk68_QbxcIEBpLsbHXyUN36D2PmgNVXMvQ0FzuTWooAlF-mNzYEPmzAeoXBdi4Nc0-KeoxrKQqQK_AaAHV8Vhsp4SC5BKeBHNzvady5zEm4gYOSg_oHzJq8BFTAEk4n1LAvqi9XuaCMVVLCqwBpf_SuPQ_CwkoTBnyWAdbcDI3u9WdjDGNAaYiOtjB5tpOfHNTGyeLYvrr0VJRD5vcuFCdopilAEAZXYLSId3LXu5zVkHdNPY2e5D3T0tunMCm2c4pfgJ`,
+					Authorization: `Bearer BQDMAvRAM6UAEP4K4onhARIsZJ50ImJiYOH0fVlMJ9_RoGOWGztk-hWA3g4ujyhWh7gTQ1yybN_asyqxfDlocS0HTRU9JWPJzQ62p7L1dFAyrYEZAUDexw7-OmBuBY0CCyHSdMsCHBlln4y6T8e0JyQC-i4dTtPspttOO_zVxvu1qojPrABOHxOK25QBH6PT8GMp0YGidLjZsCl-Htl-snH2Pf5JzL2k-NJ4Tgi-a3plhrPgP-FqxzPi3gl0dSTTF1WIETV4N8cTUPQ0`,
 				},
 			})
 			.then((response) => {
