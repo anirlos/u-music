@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { useDispatch } from 'react-redux';
-import { createPlaylist } from '../redux/actionCreators';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { createPlaylist } from "../redux/actionCreators";
+import { useNavigate } from "react-router-dom";
+import NewPlaylistbtn from "./Newplaylistbtn";
 
 interface ModalProps {
   isOpen: boolean;
@@ -67,7 +68,7 @@ const NewPlaylistModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
       onClose();
 
       // 네비게이션 수행
-      navigate('/New-playlist'); // New-playlist 페이지로 이동
+      navigate("/New-playlist"); // New-playlist 페이지로 이동
     }
   };
 

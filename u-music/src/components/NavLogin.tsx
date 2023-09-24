@@ -7,11 +7,7 @@ const NavLogin = () => {
     window.location.pathname = "/login";
   };
 
-  return (
-    <LoginBox>
-      <button onClick={linkToLogin}>로그인</button>
-    </LoginBox>
-  );
+  return <LoginBox />;
 };
 
 export default NavLogin;

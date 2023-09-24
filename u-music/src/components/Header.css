@@ -14,7 +14,7 @@ body {
   border-bottom: 1px solid #717171;
 }
 .header img {
-  max-height: 40px;
+  max-height: 50px;
   cursor: pointer;
 }
 .header img.white-logo {
@@ -43,7 +43,7 @@ body {
 
 .menu img {
   width: 50px;
-  /* height: auto; 이미지 크기 유지 */
+  height: auto;
   margin-right: 1px;
   justify-content: flex-start;
 }
@@ -78,4 +78,30 @@ body {
   width: 50px;
   margin-right: 10px;
   cursor: pointer;
+}
+.login-button {
+  background-color: #3c3c3c;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+.login-button:hover {
+  background-color: #030303c4;
+}
+.header.login-active {
+  /* 로그인 버튼 클릭 시 추가되는 클래스 */
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  top: 1px;
+  flex-wrap: wrap;
+}
+@media screen and (min-width: 500px) {
+  .navigation {
+    padding-bottom: 1000px; /* 원하는 높이로 조절하세요 */
+  }
 }

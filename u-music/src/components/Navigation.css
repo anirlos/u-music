@@ -5,6 +5,8 @@ body {
   background-color: #030303;
 }
 .navigation {
+  position: fixed;
+  left: 0;
   background-color: #030303;
   color: #fff;
   padding: 20px 30px 0px 15px;
@@ -27,9 +29,20 @@ body {
   display: flex; /* 부모 요소인 li를 flex로 설정 */
   align-items: center; /* 세로 중앙 정렬 */
 }
+.navigation li:hover,
+.navigation li.active {
+  background-color: #302e2e;
+  padding: 10px 10px;
+  border-radius: 15px;
+}
 
+.navigation li:hover a,
+.navigation li.active a {
+  padding: 0 0 0 10px;
+  transition: none;
+}
 .navigation img {
-  width: 30px;
+  width: 25px;
   margin-right: 10px;
 }
 .navigation a {
@@ -44,23 +57,9 @@ body {
   position: absolute;
   top: 0;
   left: 14rem;
-  width: 1px; /* 세로 줄의 두께 조절 */
-  height: 100%; /* .navigation의 높이만큼 세로 줄을 늘립니다. */
-  background-color: #717171; /* 세로 줄의 색상 설정 */
-  /* 다른 스타일을 추가로 설정할 수 있습니다. */
-}
-
-.navigation button {
-  margin-top: auto; /* 버튼을 아래로 밀어서 아래 정렬을 막고 중앙 정렬 */
-  background-color: #1d1d1d; /* 버튼 배경색 */
-  color: #fff;
-  border: none;
-  padding: 10px 40px;
-  border-radius: 20px; /* 버튼에 border-radius 적용 */
-
-  cursor: pointer;
-  font-size: 15px;
-  display: flex;
+  width: 1px;
+  height: 100%;
+  background-color: #717171;
 }
 
 @media screen and (min-width: 500px) {
