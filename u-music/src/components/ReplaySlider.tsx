@@ -31,7 +31,7 @@ function ReplaySlider() {
 		axios
 			.get(spotifyApiUrl, {
 				headers: {
-					Authorization: `Bearer BQCKyfMbGg_LQQnQc1IPKIb-7RpaXyttRVevpPYmFASlJwhqAX3wdw3diCFv13DPL2Zo_raM2aiKnS6CiJ1hhRHJr4OuCLu2ksEFj6FoNejFE7CHHBdaOBgZ98hrDmW63lwfL884pvR4BfylVEwRgdumuETc0SNEBBZTwOzgjuht51zI-KgJIOynQSxTMeHnWp2wIxjSky5cAVKSP68hn0VRA-dPoY_Xj3nzQ_GIW3u2jXD-Lgn-Llc9mSYnRgdrVCKzq9IX4Mu1LWQi`,
+					Authorization: `Bearer BQDMdoHYdBPshaI1Pz7LezuPZB65ppcSh9g8JgvAi74-DJepTp3Sp_CXKO_Bz4CwqZ00ICcWyNVCjhgtqJEzLkRy4q4CnCk8lp1ZuzbVfL7HNt5ENjV2vD1WyMQpc-7cYBhFH1tJlFEVzPeuueNadOWhDPS5QUFCRXLsugmxW1mhSO5pUlTrr4wUxcIxLf9IoP1-Raj1aL-6YjBMx7Ovdy6T4ZHKCUaVpmyCSwS5O-XaOeMOQ-KIwv-gokiv_zddEXMKVSFju0z4xYmq`,
 				},
 			})
 			.then((response) => {
@@ -164,7 +164,6 @@ const Container = styled.div`
 	margin: 0 auto;
 	margin-top: 1.6rem;
 	margin-left: 250px;
-	z-index: -1;
 `;
 
 const Title = styled.div`
