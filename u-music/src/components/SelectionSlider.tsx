@@ -165,8 +165,8 @@ const Container = styled.div`
 	position: relative;
 	max-width: 100%;
 	width: 80vw;
-
 	margin-left: 250px;
+	z-index: -1;
 
 	/* background-color: gray; */
 `;
