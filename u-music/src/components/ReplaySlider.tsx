@@ -164,6 +164,7 @@ const Container = styled.div`
 	margin: 0 auto;
 	margin-top: 1.6rem;
 	margin-left: 250px;
+	z-index: -1;
 `;
 
 const Title = styled.div`
