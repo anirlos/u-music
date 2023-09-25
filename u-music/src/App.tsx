@@ -40,7 +40,7 @@ function App() {
             <Route path="/login" element={<Login />} />
 
             <Route path="/explore" element={<Explore />} />
-            <Route path="/dashboard" element={<Library />} />
+            <Route path="/library" element={<Library />} />
             <Route path="/search" element={<SearchScreen />} />
             {/* "New-playlist" 경로 추가 */}
             <Route path="/New-playlist" element={<NewPlaylistPage />} />

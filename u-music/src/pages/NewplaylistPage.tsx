@@ -118,7 +118,6 @@ const RightColumn = styled.div`
   flex-direction: column;
   padding: 2rem;
   margin: 1rem;
-  
 `;
 
 const MusicListContainer = styled.div`
