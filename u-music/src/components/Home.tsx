@@ -20,11 +20,11 @@ const Home = () => {
 const SlideContainer = styled.div`
 	display: flex;
 	flex-direction: column;
+	z-index: -1;
 
 	@media screen and (max-width: 1440px) {
 		position: absolute;
 		width: 75vw;
-		z-index: -1;
 	}
 	@media screen and (max-width: 1024px) {
 		width: 65vw; /* 원하는 값을 적용하세요 */
