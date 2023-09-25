@@ -45,7 +45,7 @@ const CreateNewplaylistBtn = styled.button`
   background-color: #000;
   color: #fff;
   padding: 0.7rem 3rem 1rem 2.5rem;
-  margin: 0rem 0.5rem 0rem 1rem;
+  /* margin: 0rem 0.5rem 0rem 1rem; */
   border: none;
   border-radius: 5rem;
   cursor: pointer;
