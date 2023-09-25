@@ -1,10 +1,9 @@
+// Library.tsx
 import React, { FC } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { LibraryRootState } from "../redux/store";
 import LibraryItem from "../components/LibraryItem";
-import Header from "./../components/Header";
-import Navigation from "./../components/Navigation";
 
 const Library: FC = () => {
   const savedSongs = useSelector(
@@ -12,24 +11,18 @@ const Library: FC = () => {
   );
 
   return (
-    <>
-      <Header />
-      <Navigation />
-      <Container>
-        <ContentContainer>
-          {/* contents - 보관함에 담긴 data들 list로 */}
-          <div className="items">
-            {savedSongs.length > 0 ? (
-              savedSongs.map((item) => (
-                <LibraryItem key={item.id} song={item} />
-              ))
-            ) : (
-              <NoSongMessage>저장된 노래가 없습니다.</NoSongMessage>
-            )}
-          </div>
-        </ContentContainer>
-      </Container>
-    </>
+    <Container>
+      <ContentContainer>
+        {/* contents - 보관함에 담긴 data들 list로 */}
+        <div className="items">
+          {savedSongs.length > 0 ? (
+            savedSongs.map((item) => <LibraryItem key={item.id} song={item} />)
+          ) : (
+            <NoSongMessage>저장된 노래가 없습니다.</NoSongMessage>
+          )}
+        </div>
+      </ContentContainer>
+    </Container>
   );
 };
 
