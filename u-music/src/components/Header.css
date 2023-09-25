@@ -1,0 +1,86 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto Mono";
+}
+
+.header {
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 10px;
+  background-color: #030303;
+  color: #fff;
+  border-bottom: 0.2px solid #222222;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+.header img {
+  width: 90px;
+  height: 20px;
+  cursor: pointer;
+}
+.header img.white-logo {
+  margin-right: 15px;
+}
+
+.centered-search-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+.menu {
+  width: 70px;
+  font-weight: bold;
+  margin: 15px 20px 15px 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.menu {
+  margin-right: 30px;
+}
+
+.menu img {
+  width: 50px;
+  /* height: auto; 이미지 크기 유지 */
+  margin-right: 1px;
+  justify-content: flex-start;
+}
+
+.menu img:hover {
+  width: 50px; /* 마우스 호버 시 이미지 크기 변경 */
+}
+
+/* .logo {
+  margin-right: 150px;
+}
+.logo img {
+  width: 90px;
+  margin-left: 5px;
+} */
+
+.main-name_desc {
+  font-size: 20px;
+  margin-left: 5px;
+}
+
+.login {
+  display: flex;
+  align-items: center;
+}
+.login-status {
+  font-size: 15px;
+  margin-left: 400px;
+}
+
+.login-status img {
+  width: 50px;
+  margin-right: 10px;
+  cursor: pointer;
+}
