@@ -37,6 +37,8 @@ const Library: FC = () => {
 const Container = styled.div`
   width: calc(100% - 245px);
   margin-left: 245px;
+  margin-top: 4rem;
+  margin-left: 250px;
 `;
 
 const ContentContainer = styled.div`
