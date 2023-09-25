@@ -22,7 +22,9 @@ const SlideContainer = styled.div`
 	flex-direction: column;
 
 	@media screen and (max-width: 1440px) {
-		width: 75vw; /* 원하는 값을 적용하세요 */
+		position: absolute;
+		width: 75vw;
+		z-index: -1;
 	}
 	@media screen and (max-width: 1024px) {
 		width: 65vw; /* 원하는 값을 적용하세요 */
