@@ -1,14 +1,20 @@
-import React from 'react';
-import ReplaySlider from '../components/ReplaySlider';
-import SelectionSlide from '../components/SelectionSlider';
+import React from "react";
 
-const Home = () => {
-	return (
-		<div>
-			<ReplaySlider />
-			<SelectionSlide />
-		</div>
-	);
-};
+import SelectionSlider from "../components/SelectionSlider";
+
+import ReplaySlider from "../components/ReplaySlider";
+import Header from "./../components/Header";
+import Navigation from "./../components/Navigation";
+
+function Home() {
+  return (
+    <>
+      <Header />
+      <Navigation />
+      <ReplaySlider />
+      <SelectionSlider />
+    </>
+  );
+}
 
 export default Home;

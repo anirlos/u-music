@@ -5,8 +5,9 @@ import SearchBar from "./SearchBar";
 import menu from "./assets/menu.svg";
 import whiteLogo from "./assets/white_logo.svg";
 import cast from "./assets/cast.svg";
+import NavLogin from "./NavLogin";
 // LoginBox 컴포넌트 import
-import LoginBox from "./LoginBox";
+// import LoginBox from "./LoginBox";
 
 // const NavLogin = () => {
 //   const linkToLogin = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -63,29 +64,29 @@ import LoginBox from "./LoginBox";
 //   );
 // }
 
-const NavLogin = () => {
-  const linkToLogin = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    window.location.pathname = "/login";
-  };
+// const NavLogin = () => {
+//   const linkToLogin = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+//     e.preventDefault();
+//     window.location.pathname = "/login";
+//   };
 
-  return (
-    <LoginBox>
-      <button
-        onClick={linkToLogin}
-        style={{
-          padding: "10px 20px",
-          backgroundColor: "#030303",
-          color: "white",
-          borderRadius: "10px",
-          cursor: "pointer",
-        }}
-      >
-        로그인
-      </button>
-    </LoginBox>
-  );
-};
+//   return (
+//     <LoginBox>
+//       <button
+//         onClick={linkToLogin}
+//         style={{
+//           padding: "10px 20px",
+//           backgroundColor: "#030303",
+//           color: "white",
+//           borderRadius: "10px",
+//           cursor: "pointer",
+//         }}
+//       >
+//         로그인
+//       </button>
+//     </LoginBox>
+//   );
+// };
 
 function Header() {
   const navigate = useNavigate();
@@ -112,10 +113,7 @@ function Header() {
           }}
         />
       </div>
-      <div className="login">
-        <img src={cast} alt="cast" />
-        <NavLogin />
-      </div>
+      <NavLogin />
     </header>
   );
 }
