@@ -11,9 +11,11 @@ import Header from './components/Header';
 import Navigation from './components/Navigation';
 import Home from './components/Home';
 import Explore from './components/Explore';
-import Dashboard from './components/Dashboard';
+
 import SearchScreen from './components/SearchScreen';
-import styled from 'styled-components';
+import Library from './pages/Library';
+import Login from './pages/Login';
+import { useNavigation } from 'react-router-dom';
 
 function App() {
 	const [isModalOpen, setModalOpen] = useState(false);
@@ -32,8 +34,9 @@ function App() {
 				<div className="content">
 					<Navigation />
 					<Routes>
+						<Route path="/login" element={<Login />} />
 						<Route path="/explore" element={<Explore />} />
-						<Route path="/dashboard" element={<Dashboard />} />
+						<Route path="/dashboard" element={<Library />} />
 						<Route path="/search" element={<SearchScreen />} />
 						<Route path="/" element={<Home />} /> {/* 홈 페이지 */}{' '}
 					</Routes>
