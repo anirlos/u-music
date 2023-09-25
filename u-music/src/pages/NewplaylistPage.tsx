@@ -9,8 +9,10 @@ import album3Img from "../img/album3.jpg";
 import album4Img from "../img/album4.jpg";
 import album5Img from "../img/album5.jpg";
 import album6Img from "../img/album6.jpg";
+import Header from "./../components/Header";
+import Navigation from "./../components/Navigation";
 
-interface NewPlaylistListPageProps {
+interface NewPlaylistPageProps {
   // NewPlaylistListPage 컴포넌트의 props 정의
 }
 
@@ -65,9 +67,11 @@ const mockMusicData = [
   },
 ];
 
-const NewPlaylistPage: React.FC<NewPlaylistListPageProps> = () => {
+const NewPlaylistPage: React.FC<NewPlaylistPageProps> = () => {
   return (
     <PageContainer>
+      <Header />
+      <Navigation />
       <AlbumInfoContainer>
         <LeftColumn>
           <Albumart />
@@ -90,13 +94,12 @@ const NewPlaylistPage: React.FC<NewPlaylistListPageProps> = () => {
 };
 
 const PageContainer = styled.div`
-  background: #030303;
   color: #fff;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  padding-top: 75px; /* Navigation 높이만큼 여백 추가 */
 `;
 
 const AlbumInfoContainer = styled.div`
@@ -104,6 +107,9 @@ const AlbumInfoContainer = styled.div`
   align-items: flex-start;
   gap: 20px;
   margin-top: 20px;
+  width: 100%;
+  max-width: 1150px; /* 컨텐츠 최대 너비 설정 */
+  margin: 0 auto; /* 가운데 정렬 */
 `;
 
 const LeftColumn = styled.div`
@@ -111,21 +117,23 @@ const LeftColumn = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  flex: 1;
 `;
 
 const RightColumn = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2rem;
-  margin: 1rem;
+  flex: 3;
 `;
 
 const MusicListContainer = styled.div`
   width: 100%;
-  max-width: 600px;
   display: flex;
   flex-direction: column;
   gap: 20px;
+  max-width: 1150px; /* 컨텐츠 최대 너비 설정 */
+  margin-left: 4rem;
 `;
 
 export default NewPlaylistPage;

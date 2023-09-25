@@ -42,12 +42,12 @@ const NewPlaylistbtn: React.FC<ButtonProps> = ({ label, onClick }) => {
   );
 };
 const CreateNewplaylistBtn = styled.button`
-  background-color: #000;
+  background-color: #1d1d1d;
   color: #fff;
-  padding: 0.7rem 3rem 1rem 2.5rem;
+  padding: 0.7rem 3.5rem;
   /* margin: 0rem 0.5rem 0rem 1rem; */
   border: none;
-  border-radius: 5rem;
+  border-radius: 4rem;
   cursor: pointer;
   display: flex;
   align-items: center;

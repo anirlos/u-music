@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-
 const MusicList = ({ musicData }) => {
   return (
     <div className="music-list">
@@ -26,8 +25,8 @@ const MusicListItem = styled.div`
   align-items: center;
   gap: 1rem;
   text-align: center;
-  justify-content: space-between; 
-  border-bottom: 1px solid #fff;  
+  justify-content: space-between;
+  border-bottom: 1px solid #fff;
   border: 0;
   box-shadow: 0 0.7px #5b5b5b; /* 1px 이하의 border 처리 */
   color: #fff;
@@ -41,11 +40,10 @@ const MusicListItem = styled.div`
 `;
 
 const MusicListContainer = styled.div`
-  width: 100%;
-  max-width: 600px;
+  max-width: 1150px;
   display: flex;
   flex-direction: column;
-  gap: 10px; 
+  gap: 10px;
 `;
 
 export default MusicList;
