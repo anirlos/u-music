@@ -18,9 +18,15 @@ const Home = () => {
 	);
 };
 const SlideContainer = styled.div`
+	position: absolute;
 	display: flex;
 	flex-direction: column;
-	z-index: -1;
+
+	@media screen and (max-width: 1920px) {
+		position: absolute;
+		width: 75vw;
+		z-index: -1;
+	}
 
 	@media screen and (max-width: 1440px) {
 		position: absolute;
