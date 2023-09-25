@@ -55,7 +55,6 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@types/redux": "^3.6.0",
     "@types/styled-components": "^5.1.27",
     "ts-node": "^10.9.1"
   }
